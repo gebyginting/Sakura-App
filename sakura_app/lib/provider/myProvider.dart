@@ -92,3 +92,23 @@ class AllBarang extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+class HistoryFilter extends ChangeNotifier {
+  final List<String> _historyFilter = [
+    "Semua",
+    "Hari ini",
+    "Kemarin",
+    "7 hari terakhir",
+    "30 hari terakhir",
+  ];
+
+  List<String> get historyFilter => _historyFilter.toList();
+
+  String? _selectedValue = "Semua";
+
+  String? get selectedValue => _selectedValue;
+  set selectedValue(val) {
+    _selectedValue = val;
+    notifyListeners();
+  }
+}

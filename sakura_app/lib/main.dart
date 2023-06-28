@@ -7,6 +7,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => AllBarang()),
+      ChangeNotifierProvider(create: (_) => HistoryFilter()),
     ],
     child: const MyApp(),
   ));
