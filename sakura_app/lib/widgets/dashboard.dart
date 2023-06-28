@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sakura_app/provider/myProvider.dart';
 
+import 'detailBarang.dart';
+
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
@@ -110,13 +112,13 @@ class _DashboardPageState extends State<DashboardPage> {
                         ),
                         trailing: Icon(Icons.keyboard_arrow_right_sharp),
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         DetailBarangScreen(barang: item),
-                          //   ),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailBarangScreen(barang: item),
+                            ),
+                          );
                         },
                       ),
                       Divider(
