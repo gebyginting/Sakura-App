@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 import 'package:sakura_app/widgets/dashboard.dart';
 import 'package:sakura_app/widgets/verifikasi.dart';
+import '../Components/Tambah_Barang.dart';
 import '../widgets/bottomNavbar.dart';
-import '../widgets/changePwProfile.dart';
 import '../widgets/detailKasbon.dart';
 import '../widgets/history.dart';
 
@@ -11,7 +11,7 @@ class AppPage {
     GetPage(name: navbar, page: () => const MyBottomNavbar()),
     GetPage(name: home, page: () => const DashboardPage()),
     GetPage(name: kasbon, page: () => const DetailKasbon()),
-    GetPage(name: add, page: () => const ChangePwProfile()),
+    GetPage(name: add, page: () => const TambahBarang()),
     GetPage(name: history, page: () => const HistoryPage()),
     GetPage(name: profile, page: () => const Verification()),
   ];

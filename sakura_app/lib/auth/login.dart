@@ -1,11 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sakura_app/auth/lupa_Password.dart';
 import 'package:sakura_app/auth/signup.dart';
 
-
+import '../widgets/bottomNavbar.dart';
 
 bool _obscurePassword = true;
 
@@ -36,8 +35,7 @@ class _LoginState extends State<Login> {
               })),
               Positioned(
                 top: 0,
-                child:
-                    Image.asset('assets/cover.png', fit: BoxFit.cover),
+                child: Image.asset('assets/cover.png', fit: BoxFit.cover),
               ),
               Container(
                 padding: EdgeInsets.all(36),
@@ -114,7 +112,8 @@ class _LoginState extends State<Login> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Signup()),
+                          MaterialPageRoute(
+                              builder: (context) => MyBottomNavbar()),
                         );
                       },
                       child: Text('Log in', style: TextStyle(fontSize: 18)),
@@ -186,9 +185,7 @@ class _LoginState extends State<Login> {
                             border: Border.all(color: Colors.red, width: 2),
                           ),
                           child: IconButton(
-                            onPressed: () {
-                            
-                            },
+                            onPressed: () {},
                             icon: FaIcon(
                               FontAwesomeIcons.twitter,
                               color: Color.fromARGB(255, 108, 186, 250),
@@ -205,9 +202,7 @@ class _LoginState extends State<Login> {
                             border: Border.all(color: Colors.red, width: 2),
                           ),
                           child: IconButton(
-                            onPressed: () {
-                            
-                            },
+                            onPressed: () {},
                             icon: FaIcon(
                               FontAwesomeIcons.google,
                               color: Colors.red,
@@ -222,8 +217,7 @@ class _LoginState extends State<Login> {
                             border: Border.all(color: Colors.red, width: 2),
                           ),
                           child: IconButton(
-                            onPressed: () {
-                            },
+                            onPressed: () {},
                             icon: FaIcon(
                               FontAwesomeIcons.facebookF,
                               color: Colors.blue,
@@ -236,6 +230,6 @@ class _LoginState extends State<Login> {
                   ],
                 ),
               ),
-      ])))));
+            ])))));
   }
 }

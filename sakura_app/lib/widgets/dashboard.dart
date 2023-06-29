@@ -79,7 +79,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 ),
               ),
               onChanged: (value) {
-                prov.textSearch(value);
+                prov.searchTextFiled(value);
               },
             ),
           ),

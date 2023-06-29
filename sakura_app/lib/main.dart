@@ -3,7 +3,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:sakura_app/provider/myProvider.dart';
 import 'package:sakura_app/routes/routes.dart';
-import 'package:sakura_app/widgets/bottomNavbar.dart';
+import 'package:sakura_app/auth/login.dart';
+import 'package:sakura_app/widgets/dashboard.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyBottomNavbar(),
+      home: Login(),
     );
   }
 }

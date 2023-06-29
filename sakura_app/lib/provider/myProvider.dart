@@ -80,7 +80,7 @@ class AllBarang extends ChangeNotifier {
 
   List<Barang> get listBarang => myList.toList();
 
-  textSearch(String query) {
+  searchTextFiled(String query) {
     final suggestions = AllBarang().myList.where((item) {
       final namaBarang = item.nama.toLowerCase();
       final input = query.toLowerCase();

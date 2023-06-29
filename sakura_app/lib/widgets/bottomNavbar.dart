@@ -3,8 +3,7 @@ import 'package:get/get.dart';
 import 'package:sakura_app/controller/controller.dart';
 import 'package:sakura_app/widgets/dashboard.dart';
 import 'package:sakura_app/widgets/verifikasi.dart';
-
-import 'changePwProfile.dart';
+import '../Components/Tambah_Barang.dart';
 import 'detailKasbon.dart';
 import 'history.dart';
 
@@ -27,7 +26,7 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
           children: const [
             DashboardPage(),
             DetailKasbon(),
-            ChangePwProfile(),
+            TambahBarang(),
             HistoryPage(),
             Verification()
           ],
