@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:sakura_app/provider/myProvider.dart';
-import 'package:sakura_app/widgets/dashboard.dart';
+import 'package:sakura_app/routes/routes.dart';
+import 'package:sakura_app/widgets/bottomNavbar.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -11,6 +13,10 @@ void main() {
     ],
     child: const MyApp(),
   ));
+  GetMaterialApp(
+    initialRoute: AppPage.getNavbar(),
+    getPages: AppPage.routes,
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -24,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DashboardPage(),
+      home: MyBottomNavbar(),
     );
   }
 }
