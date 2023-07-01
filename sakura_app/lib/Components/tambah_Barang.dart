@@ -11,8 +11,10 @@ class TambahBarang extends StatefulWidget {
 }
 
 class _TambahItemState extends State<TambahBarang> {
+ 
   @override
   Widget build(BuildContext context) {
+
     final myHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
