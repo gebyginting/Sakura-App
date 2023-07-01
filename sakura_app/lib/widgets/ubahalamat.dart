@@ -16,6 +16,12 @@ class _UbahAlamatState extends State<UbahAlamat> {
     color: Colors.black,
   );
 
+  TextEditingController pemilikController = TextEditingController();
+  TextEditingController alamatController = TextEditingController();
+  TextEditingController kecamatanController = TextEditingController();
+  TextEditingController kotaController = TextEditingController();
+  TextEditingController provinsiController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final myHeight = MediaQuery.of(context).size.height;
@@ -72,9 +78,14 @@ class _UbahAlamatState extends State<UbahAlamat> {
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: 10.0, horizontal: 20.0),
                                 border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0))),
+                                    borderRadius: BorderRadius.circular(10.0)),
+                                    
+                            ),
+                            
                           ),
+                          
                         ),
+                        
                         Padding(
                           padding: const EdgeInsets.only(top: 16),
                           child: Text(
@@ -196,3 +207,4 @@ class _UbahAlamatState extends State<UbahAlamat> {
     );
   }
 }
+  

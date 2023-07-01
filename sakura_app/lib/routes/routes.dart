@@ -4,7 +4,6 @@ import 'package:sakura_app/widgets/dashboard.dart';
 import '../Components/Tambah_Barang.dart';
 import '../widgets/bottomNavbar.dart';
 import '../widgets/history.dart';
-import '../widgets/profile.dart';
 
 class AppPage {
   static List<GetPage> routes = [
@@ -13,7 +12,7 @@ class AppPage {
     GetPage(name: kasbon, page: () => const HalamanKasbon()),
     GetPage(name: add, page: () => const TambahBarang()),
     GetPage(name: history, page: () => const HistoryPage()),
-    GetPage(name: profile, page: () => const Profile()),
+   
   ];
 
   static getNavbar() => navbar;

@@ -1,32 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:sakura_app/provider/user.dart';
 
 class UbahProfile extends StatefulWidget {
-  const UbahProfile({Key? key}) : super(key: key);
+  const UbahProfile({Key? key, required this.email, required this.username})
+      : super(key: key);
+
+  final String email;
+  final String username;
 
   @override
   State<UbahProfile> createState() => _UbahProfileState();
 }
 
 class _UbahProfileState extends State<UbahProfile> {
-  var label_format = GoogleFonts.notoSansThai(
+  late TextEditingController _usernameController;
+  late TextEditingController _emailController;
+  var labelFormat = GoogleFonts.notoSansThai(
     fontSize: 12.0,
     fontWeight: FontWeight.bold,
     color: Colors.black,
   );
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController = TextEditingController(text: widget.username);
+    _emailController = TextEditingController(text: widget.email);
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _emailController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _updateProfile() async {
+    final username = _usernameController.text;
+    final email = _emailController.text;
+
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    await userProvider.updateUser(username, email);
+
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     final myHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          // Tambahkan leading property dengan IconButton
           icon: Icon(
-            Icons.arrow_back_ios, // Gunakan ikon kembali dari flutter_icons
+            Icons.arrow_back_ios,
             color: Colors.black,
           ),
           onPressed: () {
-            // Tambahkan fungsi untuk menangani aksi ketika tombol kembali ditekan
             Navigator.of(context).pop();
           },
         ),
@@ -82,7 +113,8 @@ class _UbahProfileState extends State<UbahProfile> {
               SizedBox(height: 16.0),
               Card(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
+                  borderRadius: BorderRadius.circular(20),
+                ),
                 elevation: 4,
                 color: Color.fromRGBO(249, 241, 241, 1),
                 child: Padding(
@@ -94,22 +126,11 @@ class _UbahProfileState extends State<UbahProfile> {
                         children: [
                           Text(
                             'Nama Lengkap',
-                            style: label_format,
+                            style: labelFormat,
                           ),
                           SizedBox(height: 8.0),
                           TextField(
-                            decoration: InputDecoration(
-                              isDense: true,
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0,
-                                horizontal: 20.0,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
+                            controller: _usernameController,
                           ),
                         ],
                       ),
@@ -119,22 +140,11 @@ class _UbahProfileState extends State<UbahProfile> {
                         children: [
                           Text(
                             'Username',
-                            style: label_format,
+                            style: labelFormat,
                           ),
                           SizedBox(height: 8.0),
                           TextField(
-                            decoration: InputDecoration(
-                              isDense: true,
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0,
-                                horizontal: 20.0,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            ),
+                            controller: _emailController,
                           ),
                         ],
                       ),
@@ -144,10 +154,11 @@ class _UbahProfileState extends State<UbahProfile> {
                         children: [
                           Text(
                             'Email',
-                            style: label_format,
+                            style: labelFormat,
                           ),
                           SizedBox(height: 8.0),
                           TextField(
+                            controller: _emailController,
                             decoration: InputDecoration(
                               filled: true,
                               isDense: true,
@@ -168,24 +179,28 @@ class _UbahProfileState extends State<UbahProfile> {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 15),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: _updateProfile,
                             child: Text(
                               'Simpan',
                               style: TextStyle(
-                                  fontWeight: FontWeight.normal, fontSize: 14),
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14,
+                              ),
                             ),
                             style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color.fromRGBO(241, 33, 90, 1),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.circular(16.0) //border
-                                    ),
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 30, vertical: 5.0)),
+                              backgroundColor:
+                                  const Color.fromRGBO(241, 33, 90, 1),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16.0),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 30,
+                                vertical: 5.0,
+                              ),
+                            ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
