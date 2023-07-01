@@ -103,6 +103,12 @@ class AllBarang extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  //untuk hapus barang
+  void hapusBarang(Barang barang) {
+    myList.remove(barang);
+    notifyListeners();
+  }
 }
 
 class HistoryFilter extends ChangeNotifier {

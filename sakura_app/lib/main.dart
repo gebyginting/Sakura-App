@@ -16,8 +16,6 @@ void main() {
       ChangeNotifierProvider(create: (_) => AllBarang()),
       ChangeNotifierProvider(create: (_) => HistoryFilter()),
       ChangeNotifierProvider(create: (_) => UserProvider()),
-       
-    
     ],
     child: const MyApp(),
   ));
@@ -42,4 +40,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
- 
