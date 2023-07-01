@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sakura_app/reusableWidgets/myAppbar.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -20,19 +20,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     final myHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        centerTitle: true,
-        toolbarHeight: myHeight * 0.10,
-        backgroundColor: Color.fromRGBO(239, 239, 239, 1),
-      ),
+      appBar: MyAppBar(title: 'Profile'),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -42,10 +30,9 @@ class _ProfileState extends State<Profile> {
               // Mengatur tinggi kontainer gambar
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                      'assets/img/dash.png'), // Mengatur gambar latar belakang
-                  fit: BoxFit.scaleDown,
-                ),
+                    image: AssetImage(
+                        'assets/dash.png'), // Mengatur gambar latar belakang
+                    fit: BoxFit.fitWidth),
               ),
             ),
             Container(
@@ -64,7 +51,7 @@ class _ProfileState extends State<Profile> {
                               height: 100,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(100),
-                                child: Image.asset('assets/img/profile.jpg'),
+                                child: Image.asset('assets/profile.jpg'),
                               ),
                             )
                           ],

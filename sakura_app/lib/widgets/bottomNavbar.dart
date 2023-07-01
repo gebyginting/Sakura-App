@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sakura_app/controller/controller.dart';
+import 'package:sakura_app/widgets/HalamanKasbon.dart';
 import 'package:sakura_app/widgets/dashboard.dart';
-import 'package:sakura_app/widgets/verifikasi.dart';
+import 'package:sakura_app/widgets/profile.dart';
 import '../Components/Tambah_Barang.dart';
-import 'detailKasbon.dart';
 import 'history.dart';
 
 class MyBottomNavbar extends StatefulWidget {
@@ -25,10 +25,10 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
           index: controller.tabIndex,
           children: const [
             DashboardPage(),
-            DetailKasbon(),
+            HalamanKasbon(),
             TambahBarang(),
             HistoryPage(),
-            Verification()
+            Profile()
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
