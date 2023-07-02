@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:sakura_app/provider/myModel.dart';
 
 class AllBarang extends ChangeNotifier {
@@ -8,7 +9,7 @@ class AllBarang extends ChangeNotifier {
         nama: "Rinso Matic Cair 2.7L",
         harga: 239000,
         stok: 18,
-        kode: '8991998111767'),
+        kode: '8991998111765'),
     Barang(
         image: "products/sempurna16.png",
         nama: "Sempurna Mild 16",
@@ -38,7 +39,7 @@ class AllBarang extends ChangeNotifier {
         nama: "Ultra Milk 250ML",
         harga: 6000,
         stok: 18,
-        kode: '8991998111767'),
+        kode: '8991998111766'),
     Barang(
         image: "products/daia.png",
         nama: "Daia Sachet",
@@ -64,12 +65,6 @@ class AllBarang extends ChangeNotifier {
         stok: 18,
         kode: '8992753101207'),
     Barang(
-        image: "products/kopi.png",
-        nama: "Kopi Tubruk Gadjah 150gr",
-        harga: 11000,
-        stok: 18,
-        kode: '8991998111767'),
-    Barang(
         image: "products/gery-salut.jpg",
         nama: "Gery Salut Unibis",
         harga: 6000,
@@ -77,8 +72,10 @@ class AllBarang extends ChangeNotifier {
         kode: '8992775315095'),
   ];
 
+  //ambil isi dari list barang
   List<Barang> get listBarang => myList.toList();
 
+  //fitur cari barang dengan search box
   searchTextFiled(String query) {
     final suggestions = AllBarang().myList.where((item) {
       final namaBarang = item.nama.toLowerCase();
@@ -88,6 +85,27 @@ class AllBarang extends ChangeNotifier {
     }).toList();
 
     myList = suggestions;
+    notifyListeners();
+  }
+
+  //fitur cari barang dengan scan barcode
+  Future scanBarcode() async {
+    var getCode = await FlutterBarcodeScanner.scanBarcode(
+        ('#009922'), "Batal", true, ScanMode.DEFAULT);
+
+    if (getCode != "-1") {
+      final scanned = AllBarang().myList.where((item) {
+        final barcode = item.kode;
+        return barcode == getCode;
+      }).toList();
+      myList = scanned;
+    }
+    notifyListeners();
+  }
+
+  //untuk hapus barang
+  void hapusBarang(Barang barang) {
+    myList.remove(barang);
     notifyListeners();
   }
 }

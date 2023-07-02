@@ -17,6 +17,12 @@ class _UbahAlamatPageState extends State<UbahAlamatPage> {
     color: Colors.black,
   );
 
+  TextEditingController pemilikController = TextEditingController();
+  TextEditingController alamatController = TextEditingController();
+  TextEditingController kecamatanController = TextEditingController();
+  TextEditingController kotaController = TextEditingController();
+  TextEditingController provinsiController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -205,3 +211,4 @@ class _UbahAlamatPageState extends State<UbahAlamatPage> {
     );
   }
 }
+  

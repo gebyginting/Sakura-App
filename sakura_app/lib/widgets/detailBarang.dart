@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:sakura_app/provider/myModel.dart';
+import 'package:sakura_app/provider/myProvider.dart';
 
 import '../reusableWidgets/myAppbar.dart';
 import 'editBarang.dart';
@@ -18,6 +20,7 @@ class _DetailBarangScreenState extends State<DetailBarangScreen> {
   @override
   Widget build(BuildContext context) {
     // final myHeight = MediaQuery.of(context).size.height;
+    var prov = Provider.of<AllBarang>(context, listen: false);
 
     return Scaffold(
       appBar: MyAppBar(title: 'Rincian Barang'),
@@ -143,24 +146,127 @@ class _DetailBarangScreenState extends State<DetailBarangScreen> {
                     height: 10,
                   ),
                   Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          backgroundColor: Color.fromRGBO(
-                              241, 33, 90, 1), // Background color
-                        ),
-                        onPressed: () {},
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.symmetric(
-                              horizontal: 2, vertical: 2),
-                          child: Text(
-                            'Hapus',
-                            style: GoogleFonts.outfit(fontSize: 14),
+                      alignment: Alignment.centerRight,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            backgroundColor: Color.fromRGBO(
+                                241, 33, 90, 1), // Background color
                           ),
-                        )),
-                  )
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: Text(
+                                    "Yakin Menghapus Barang Ini?",
+                                    style: TextStyle(
+                                      color: Colors.pink,
+                                      fontSize: 14,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: BorderSide(
+                                      color: Colors.pink,
+                                      width: 2.0,
+                                    ),
+                                  ),
+                                  actions: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 20),
+                                              child: OutlinedButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                style: OutlinedButton.styleFrom(
+                                                  side: BorderSide(
+                                                    color: Color.fromARGB(
+                                                        255, 224, 28, 110),
+                                                    width: 1.0,
+                                                  ),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  "Batal",
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 224, 28, 110),
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 50,
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 20),
+                                              child: OutlinedButton(
+                                                onPressed: () {
+                                                  prov.hapusBarang(
+                                                      widget.barang);
+                                                  Navigator.pop(context);
+                                                  Navigator.pop(context);
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                          '${widget.barang.nama} berhasil dihapus.'),
+                                                    ),
+                                                  );
+                                                },
+                                                style: OutlinedButton.styleFrom(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                  ),
+                                                  backgroundColor: Colors.pink,
+                                                  foregroundColor: Colors.white,
+                                                ),
+                                                child: Text(
+                                                  "Hapus",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.symmetric(
+                                horizontal: 2, vertical: 2),
+                            child: Text(
+                              'Hapus',
+                              style: GoogleFonts.outfit(fontSize: 14),
+                            ),
+                          )))
                 ],
               ),
             ),

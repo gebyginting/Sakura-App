@@ -75,7 +75,10 @@ class _DashboardPageState extends State<DashboardPage> {
                 suffixIcon: Padding(
                   padding: const EdgeInsets.only(right: 7),
                   child: GestureDetector(
-                      onTap: () {}, child: Image.asset('assets/barcodee.png')),
+                      onTap: () {
+                        prov.scanBarcode();
+                      },
+                      child: Image.asset('assets/barcodee.png')),
                 ),
               ),
               onChanged: (value) {
