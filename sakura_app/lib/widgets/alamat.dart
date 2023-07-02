@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:sakura_app/widgets/ubahalamat.dart';
+import '../provider/myProvider.dart';
 
-import '../reusableWidgets/myAppbar.dart';
-
-class AlamatPage extends StatefulWidget {
-  const AlamatPage({super.key});
-
+class HalamanAlamat extends StatefulWidget {
+  const HalamanAlamat({super.key});
   @override
-  State<AlamatPage> createState() => _AlamatPageState();
+  State<HalamanAlamat> createState() => _HalamanAlamatState();
 }
 
-class _AlamatPageState extends State<AlamatPage> {
+class _HalamanAlamatState extends State<HalamanAlamat> {
   var label_format = GoogleFonts.notoSansThai(
     fontSize: 14.0,
     fontWeight: FontWeight.bold,
@@ -19,10 +19,22 @@ class _AlamatPageState extends State<AlamatPage> {
 
   @override
   Widget build(BuildContext context) {
-    final myHeight = MediaQuery.of(context).size.height;
+    final alamatProvider = Provider.of<AlamatProvider>(context);
+    final alamat = alamatProvider.alamat;
 
     return Scaffold(
-      appBar: MyAppBar(title: 'Alamat'),
+      appBar: AppBar(
+        title: Text(
+          'Alamat',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(239, 239, 239, 1),
+      ),
       body: Align(
         alignment: AlignmentDirectional.topCenter,
         child: Card(
@@ -32,9 +44,11 @@ class _AlamatPageState extends State<AlamatPage> {
           ),
           color: Color.fromRGBO(249, 241, 241, 1),
           elevation: 12,
-          child: IntrinsicHeight(
-            child: SizedBox(
-              width: 325,
+          child: SizedBox(
+            height: 450,
+            width: 325,
+            child: Align(
+              alignment: Alignment.topLeft,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: Column(
@@ -42,56 +56,58 @@ class _AlamatPageState extends State<AlamatPage> {
                   children: [
                     ListTile(
                       title: Text(
-                        'Pemilik',
+                        'Pemilik:',
                         style: label_format,
                       ),
                       subtitle: Text(
-                        'Jhon Anzep',
+                        alamat.pemilik,
                       ),
                     ),
                     ListTile(
                       title: Text(
-                        'Alamat',
+                        'Alamat:',
                         style: label_format,
                       ),
                       subtitle: Text(
-                        'Jl. Jamin Ginting No.1',
+                        alamat.alamat,
                       ),
                     ),
                     ListTile(
                       title: Text(
-                        'Kecamatan',
+                        'Kecamatan:',
                         style: label_format,
                       ),
                       subtitle: Text(
-                        'Medan Baru',
+                        alamat.kecamatan,
                       ),
                     ),
                     ListTile(
                       title: Text(
-                        'Kota',
+                        'Kota:',
                         style: label_format,
                       ),
-                      subtitle: Text(
-                        'Kota Medan',
-                      ),
+                      subtitle: Text(alamat.kota),
                     ),
                     ListTile(
                       title: Text(
-                        'Provinsi',
+                        'Provinsi:',
                         style: label_format,
                       ),
                       subtitle: Text(
-                        'Sumatera Utara',
+                        alamat.provinsi,
                       ),
                     ),
                     Align(
                       alignment: AlignmentDirectional.centerEnd,
                       child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 25, bottom: 20, right: 20),
+                        padding: const EdgeInsets.only(top: 35, right: 20),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UbahAlamatPage()));
+                          },
                           child: Text(
                             'Ubah',
                             style: TextStyle(
@@ -105,7 +121,7 @@ class _AlamatPageState extends State<AlamatPage> {
                                       BorderRadius.circular(16.0) //border
                                   ),
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 0)),
+                                  horizontal: 25, vertical: 14.0)),
                         ),
                       ),
                     )
