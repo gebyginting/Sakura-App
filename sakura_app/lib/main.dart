@@ -3,14 +3,14 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:sakura_app/provider/myProvider.dart';
 import 'package:sakura_app/routes/routes.dart';
-import 'package:sakura_app/auth/login.dart';
-import 'package:sakura_app/widgets/dashboard.dart';
+import 'package:sakura_app/widgets/alamat.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => AllBarang()),
       ChangeNotifierProvider(create: (_) => HistoryFilter()),
+      ChangeNotifierProvider(create: (_) => AlamatProvider()),
     ],
     child: const MyApp(),
   ));
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Login(),
+      home: HalamanAlamat(),
     );
   }
 }

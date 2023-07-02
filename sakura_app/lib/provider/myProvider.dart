@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sakura_app/provider/myModel.dart';
-import 'package:sakura_app/widgets/dashboard.dart';
 
 class AllBarang extends ChangeNotifier {
   List<Barang> myList = [
@@ -110,5 +109,82 @@ class HistoryFilter extends ChangeNotifier {
   set selectedValue(val) {
     _selectedValue = val;
     notifyListeners();
+  }
+}
+
+class Alamat {
+  String pemilik;
+  String alamat;
+  String kecamatan;
+  String kota;
+  String provinsi;
+
+  Alamat({
+    required this.pemilik,
+    required this.alamat,
+    required this.kecamatan,
+    required this.kota,
+    required this.provinsi,
+  });
+}
+
+class AlamatProvider with ChangeNotifier {
+  Alamat _alamat = Alamat(
+    pemilik: 'Jhon Anzep',
+    alamat: 'Jl. Jamin Ginting No.1',
+    kecamatan: 'Medan Baru',
+    kota: 'Kota Medan',
+    provinsi: 'Sumatera Utara',
+  );
+
+  Alamat get alamat => _alamat;
+
+  void updateAlamat(
+    String pemilik,
+    String alamat,
+    String kecamatan,
+    String kota,
+    String provinsi,
+  ) {
+    _alamat = Alamat(
+      pemilik: pemilik,
+      alamat: alamat,
+      kecamatan: kecamatan,
+      kota: kota,
+      provinsi: provinsi,
+    );
+    notifyListeners();
+  }
+}
+
+class EditAlamat extends ChangeNotifier {
+  TextEditingController pemilikController = TextEditingController();
+  TextEditingController alamatController = TextEditingController();
+  TextEditingController kecamatanController = TextEditingController();
+  TextEditingController kotaController = TextEditingController();
+  TextEditingController provinsiController = TextEditingController();
+
+  void dispose() {
+    pemilikController.dispose();
+    alamatController.dispose();
+    kecamatanController.dispose();
+    kotaController.dispose();
+    provinsiController.dispose();
+    super.dispose();
+  }
+
+  void updateAlamat(
+    AlamatProvider alamatProvider,
+    BuildContext context,
+  ) {
+    alamatProvider.updateAlamat(
+      pemilikController.text,
+      alamatController.text,
+      kecamatanController.text,
+      kotaController.text,
+      provinsiController.text,
+    );
+
+    Navigator.pop(context);
   }
 }
