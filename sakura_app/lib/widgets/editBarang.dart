@@ -16,17 +16,17 @@ class EditBarangScreen extends StatefulWidget {
 }
 
 class _EditBarangScreenState extends State<EditBarangScreen> {
-  TextEditingController _namaController = TextEditingController();
-  TextEditingController _hargaController = TextEditingController();
-  TextEditingController _stokController = TextEditingController();
-  TextEditingController _kodeController = TextEditingController();
+  final TextEditingController _namaController = TextEditingController();
+  final TextEditingController _hargaController = TextEditingController();
+  final TextEditingController _stokController = TextEditingController();
+  final TextEditingController _kodeController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _namaController.text = widget.barang.nama;
     _hargaController.text =
-        NumberFormat.currency(locale: "id", symbol: "Rp ", decimalDigits: 0)
+        NumberFormat.currency(locale: "id", symbol: "", decimalDigits: 0)
             .format(widget.barang.harga);
     _stokController.text = widget.barang.stok.toString();
     _kodeController.text = widget.barang.kode;
@@ -44,7 +44,6 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
   @override
   Widget build(BuildContext context) {
     var prov = Provider.of<AllBarang>(context);
-
     var label = GoogleFonts.notoSansThai(
         fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black);
     var isiText = GoogleFonts.notoSansThai(
@@ -114,6 +113,8 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
                           child: TextField(
                             controller: _hargaController,
                             decoration: InputDecoration(
+                              prefixText: 'Rp ',
+                              prefixStyle: label,
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: 12,
@@ -191,7 +192,9 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            prov.editBarcode();
+                          },
                           icon: ImageIcon(AssetImage('assets/barcodee.png')),
                         )
                       ],
@@ -208,31 +211,18 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
                             backgroundColor: Color.fromRGBO(241, 33, 90, 1),
                           ),
                           onPressed: () {
-                            // Simpan perubahan ke dalam objek Barang atau lakukan operasi penyimpanan data lainnya
-                            String updatedNama = _namaController.text;
-                            int updatedHarga =
-                                int.tryParse(_hargaController.text) ?? 0;
-                            int updatedStok =
-                                int.tryParse(_stokController.text) ?? 0;
-                            String updatedKode = _kodeController.text;
-
-                            // Contoh pembaruan objek barang
-                            widget.barang.nama = updatedNama;
-                            widget.barang.harga = updatedHarga;
-                            widget.barang.stok = updatedStok;
-                            widget.barang.kode = updatedKode;
-
-                            context.read<AllBarang>().listBarang[2].nama =
-                                updatedNama;
-
-                            widget.barang.harga = updatedHarga;
-                            widget.barang.stok = updatedStok;
-                            widget.barang.kode = updatedKode;
-
-                            // Tampilkan snackbar atau lakukan operasi lainnya
+                            final updatedBarang = Barang(
+                              image: widget.barang.image,
+                              nama: _namaController.text,
+                              harga: int.parse(_hargaController.text
+                                  .replaceAll(RegExp(r'[^0-9]'), '')),
+                              stok: int.parse(_stokController.text),
+                              kode: _kodeController.text,
+                            );
+                            prov.updateBarang(updatedBarang);
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text('Perubahan disimpan'),
+                                content: Text('Edit barang disimpan.'),
                               ),
                             );
                             Navigator.pop(context);

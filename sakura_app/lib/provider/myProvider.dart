@@ -108,6 +108,28 @@ class AllBarang extends ChangeNotifier {
     myList.remove(barang);
     notifyListeners();
   }
+
+  //untuk edit barang
+  void updateBarang(Barang updatedBarang) {
+    //cari dari kode
+    final index =
+        myList.indexWhere((barang) => barang.kode == updatedBarang.kode);
+    if (index != -1) {
+      // klo ketemu, diupdate
+      myList[index] = updatedBarang;
+      notifyListeners();
+    }
+  }
+
+  //fitur cari barang dengan scan barcode
+  final TextEditingController _kodeController = TextEditingController();
+  TextEditingController get kodeController => _kodeController;
+  Future editBarcode() async {
+    var getCode = await FlutterBarcodeScanner.scanBarcode(
+        ('#009922'), "Batal", true, ScanMode.DEFAULT);
+    _kodeController.text = getCode;
+    notifyListeners();
+  }
 }
 
 class HistoryFilter extends ChangeNotifier {
