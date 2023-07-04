@@ -16,6 +16,7 @@ class _ProfiledlogoutState extends State<Profiledlogout> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
+    final name = userProvider.name;
     final username = userProvider.username;
     final email = userProvider.email;
     final myHeight = MediaQuery.of(context).size.height;
@@ -70,7 +71,7 @@ class _ProfiledlogoutState extends State<Profiledlogout> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '$username',
+                              '$name',
                               style: TextStyle(fontSize: 16),
                             ),
                             SizedBox(width: 4.0),
@@ -80,6 +81,7 @@ class _ProfiledlogoutState extends State<Profiledlogout> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => UbahProfile(
+                                      name: name,
                                       username: username,
                                       email: email,
                                     ),
@@ -96,7 +98,7 @@ class _ProfiledlogoutState extends State<Profiledlogout> {
                         ),
                         SizedBox(height: 8.0),
                         Text(
-                          '$email',
+                          '$username',
                           style: TextStyle(fontSize: 15),
                         ),
                       ],

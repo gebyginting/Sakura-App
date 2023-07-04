@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sakura_app/Components/camera.dart';
+import 'package:sakura_app/auth/login.dart';
 
 
 class TambahBarang extends StatefulWidget {
@@ -62,7 +62,7 @@ class _TambahItemState extends State<TambahBarang> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => camera(),  
+                                  builder: (context) => Login(),  
                                 ),
                               );
                             },
@@ -229,7 +229,7 @@ class _TambahItemState extends State<TambahBarang> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => camera(),
+                                              builder: (context) => Login(),
                                             ),
                                           );
                                         },
@@ -281,7 +281,7 @@ class _TambahItemState extends State<TambahBarang> {
                                 SizedBox(width: 101),
                                 ElevatedButton(
                                   onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => TambahBarang()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
                                   },
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(

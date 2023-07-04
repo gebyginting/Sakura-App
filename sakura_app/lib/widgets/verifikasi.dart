@@ -11,7 +11,6 @@ class Verification extends StatefulWidget {
 class _VerificationState extends State<Verification> {
   @override
   Widget build(BuildContext context) {
-    final myHeight = MediaQuery.of(context).size.height;
     final myWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
