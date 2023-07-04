@@ -44,6 +44,7 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
   @override
   Widget build(BuildContext context) {
     var prov = Provider.of<AllBarang>(context);
+
     var label = GoogleFonts.notoSansThai(
         fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black);
     var isiText = GoogleFonts.notoSansThai(

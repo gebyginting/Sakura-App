@@ -15,13 +15,13 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  int _selectedIndex = 0;
+  // int _selectedIndex = 0;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  // void _onItemTapped(int index) {
+  //   setState(() {
+  //     _selectedIndex = index;
+  //   });
+  // }
 
   var tanggal = GoogleFonts.notoSansThai(
       fontSize: 16.0, fontWeight: FontWeight.bold, color: Colors.black);
@@ -31,15 +31,13 @@ class _HistoryPageState extends State<HistoryPage> {
     color: Color.fromRGBO(0, 0, 0, 1),
   );
 
-  String? _selectedFilterValue;
+  
   @override
   Widget build(BuildContext context) {
     final myHeight = MediaQuery.of(context).size.height;
 
     var filter = Provider.of<HistoryFilter>(context);
-    // var cards = Provider.of<HistoryList>(context);
 
-    List<Widget> filterCards = [];
     return Scaffold(
       appBar: MyAppBar(title: 'Riwayat'),
       body: Center(

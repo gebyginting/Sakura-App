@@ -12,7 +12,6 @@ class AppPage {
     GetPage(name: kasbon, page: () => const HalamanKasbon()),
     GetPage(name: add, page: () => const TambahBarang()),
     GetPage(name: history, page: () => const HistoryPage()),
-   
   ];
 
   static getNavbar() => navbar;
