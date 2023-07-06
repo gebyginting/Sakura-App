@@ -228,3 +228,45 @@ class EditAlamat extends ChangeNotifier {
     Navigator.pop(context);
   }
 }
+
+class CardData extends ChangeNotifier {
+  bool isSelecting = false;
+
+  List<Map<String, dynamic>> cardDataList = [
+    {'nama': 'Nama Pembeli 1', 'harga': 'Rp. 12.000,00', 'isChecked': false},
+    {'nama': 'Nama Pembeli 2', 'harga': 'Rp. 5.000,00', 'isChecked': false},
+    {'nama': 'Nama Pembeli 3', 'harga': 'Rp. 20.000,00', 'isChecked': false},
+    {'nama': 'Nama Pembeli 4', 'harga': 'Rp. 20.000,00', 'isChecked': false},
+  ];
+  List<int> selectedIndices = [];
+
+  void toggleCardSelection(int index) {
+    cardDataList[index]['isChecked'] = !cardDataList[index]['isChecked'];
+
+    if (cardDataList.any((card) => card['isChecked'])) {
+      isSelecting = true;
+    } else {
+      isSelecting = false;
+    }
+
+    if (cardDataList[index]['isChecked']) {
+      selectedIndices.add(index);
+    } else {
+      selectedIndices.remove(index);
+    }
+
+    notifyListeners();
+  }
+
+  void removeSelectedIndices() {
+    selectedIndices.sort((a, b) => b.compareTo(a));
+    selectedIndices.forEach((index) {
+      cardDataList.removeAt(index);
+    });
+    selectedIndices.clear();
+
+    isSelecting = false; // Reset isSelecting when removing selections
+
+    notifyListeners();
+  }
+}
