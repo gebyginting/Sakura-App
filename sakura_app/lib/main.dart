@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
+import 'package:sakura_app/Components/splashScreen.dart';
+import 'package:sakura_app/provider/adduserkasbon.dart';
 import 'package:sakura_app/provider/myProvider.dart';
 import 'package:sakura_app/provider/user.dart';
 import 'package:sakura_app/routes/routes.dart';
@@ -12,7 +14,9 @@ void main() {
       ChangeNotifierProvider(create: (_) => AllBarang()),
       ChangeNotifierProvider(create: (_) => HistoryFilter()),
       ChangeNotifierProvider(create: (_) => AlamatProvider()),
-      ChangeNotifierProvider(create: (_) => UserProvider())
+      ChangeNotifierProvider(create: (_) => UserProvider()),
+      ChangeNotifierProvider(create: (_) => KasbonProvider()),
+      ChangeNotifierProvider(create: (_) => CardData())
     ],
     child: const MyApp(),
   ));
@@ -31,9 +35,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        backgroundColor: Colors.white,
       ),
-      home: HalamanKasbon(),
+      home: SplashScreen(),
     );
   }
 }
