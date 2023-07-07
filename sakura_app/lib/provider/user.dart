@@ -12,8 +12,8 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateUserProfile(String names ,String newUsername, String newEmail) {
-    username = newUsername;
+  void updateUserProfile(String names ,String newusername, String newEmail) {
+    username = newusername;
     name = names;
     email = newEmail;
     notifyListeners();

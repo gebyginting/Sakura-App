@@ -135,8 +135,6 @@ class _UbahProfileState extends State<UbahProfile> {
                           ),
                           SizedBox(height: 8.0),
                           TextField(
-                            
-                            
                             controller: _nameController,
                           ),
                         ],

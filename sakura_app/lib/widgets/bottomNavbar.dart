@@ -1,8 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sakura_app/Components/Profile&Logout.dart';
+import 'package:sakura_app/Components/tambah_Kasbon.dart';
 import 'package:sakura_app/controller/controller.dart';
-import 'package:sakura_app/widgets/HalamanKasbon.dart';
 import 'package:sakura_app/widgets/dashboard.dart';
 import '../Components/Tambah_Barang.dart';
 import 'history.dart';
@@ -25,7 +27,7 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
           index: controller.tabIndex,
           children: const [
             DashboardPage(),
-            HalamanKasbon(),
+            TambahKasbon(),
             TambahBarang(),
             HistoryPage(),
             Profiledlogout()

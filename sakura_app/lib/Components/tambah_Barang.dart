@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -20,16 +19,12 @@ class TambahBarang extends StatefulWidget {
 
 class _TambahBarangState extends State<TambahBarang> {
   File? _imageFile;
-  // String? _gambarBarang;
-  // String? _namaBarangController;
-  // int? _hargaBarangController;
-  // int? _stokBarangController;
-  // String? _kodeBarangController;
-   String? _gambarBarang;
-  TextEditingController _namaBarangController = TextEditingController();
-  TextEditingController _hargaBarangController = TextEditingController();
-  TextEditingController _stokBarangController = TextEditingController();
-  TextEditingController _kodeBarangController = TextEditingController();
+  String? _gambarBarang;
+  // TextEditingController _imageController = TextEditingController();
+  TextEditingController _namaController = TextEditingController();
+  TextEditingController _hargaController = TextEditingController();
+  TextEditingController _stokController = TextEditingController();
+  TextEditingController _kodeController = TextEditingController();
   
   Future<File?> _pickImage(ImageSource source) async {
     
@@ -53,14 +48,14 @@ class _TambahBarangState extends State<TambahBarang> {
   }
    void _simpanBarang() {
   final allBarangProvider = Provider.of<AllBarang>(context, listen: false);
-  if (_gambarBarang != _gambarBarang && _namaBarangController != _namaBarangController && _hargaBarangController != _hargaBarangController && _stokBarangController != _stokBarangController && _kodeBarangController != _kodeBarangController) {
+  if (_gambarBarang != _gambarBarang && _namaController != _namaController && _hargaController != _hargaController && _stokController != _stokController && _kodeController != _kodeController) {
     allBarangProvider.tambahBarang(
       Barang(
         image: _gambarBarang !,
-        nama: _namaBarangController.text !,
-        harga: int.parse (_hargaBarangController.text),
-        stok: int.parse(_stokBarangController.text),
-        kode: _kodeBarangController.text !,
+        nama: _namaController.text !,
+        harga: int.parse (_hargaController.text),
+        stok: int.parse(_stokController.text),
+        kode: _kodeController.text !,
       ),
     );
   }
@@ -68,6 +63,7 @@ class _TambahBarangState extends State<TambahBarang> {
 
   @override
   Widget build(BuildContext context) {
+    var prov = Provider.of<AllBarang>(context, listen: false);
     final myHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -185,6 +181,7 @@ class _TambahBarangState extends State<TambahBarang> {
                                       ),
                                       Expanded(
                                         child: TextFormField(
+                                          controller: prov.namaController,
                                           style: GoogleFonts.notoSansThai(
                                             fontSize: 11,
                                             fontWeight: FontWeight.bold,
@@ -216,6 +213,7 @@ class _TambahBarangState extends State<TambahBarang> {
                                       ),
                                       Expanded(
                                         child: TextFormField(
+                                           controller: prov.hargaController,
                                           style: GoogleFonts.notoSansThai(
                                             fontSize: 11,
                                             fontWeight: FontWeight.bold,
@@ -252,6 +250,8 @@ class _TambahBarangState extends State<TambahBarang> {
                                           children: [
                                             Expanded(
                                               child: TextFormField(
+                                                controller: prov.stokController,
+
                                                 style: GoogleFonts.notoSansThai(
                                                   fontSize: 11,
                                                   fontWeight: FontWeight.bold,
@@ -297,6 +297,7 @@ class _TambahBarangState extends State<TambahBarang> {
                                         child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: TextFormField(
+                                            controller: prov.kodeController,
                                             style: GoogleFonts.notoSansThai(
                                               fontSize: 11,
                                               fontWeight: FontWeight.bold,
@@ -366,13 +367,19 @@ class _TambahBarangState extends State<TambahBarang> {
                                 ElevatedButton(
                                   onPressed: () {
                                     _simpanBarang();
+                                    prov.addBarang(Barang(
+                                        image: '' ,
+                                        nama: prov.namaController.text,
+                                        harga: int.parse(prov.hargaController.text),
+                                        stok:int.parse(prov.stokController.text),
+                                        kode: prov.kodeController.text));
                                     Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => DashboardPage(),
-                                      ),
-                                    );
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DashboardPage()));
                                   },
+
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20),
