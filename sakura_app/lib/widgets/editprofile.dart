@@ -67,7 +67,7 @@ class _UbahProfileState extends State<UbahProfile> {
           },
         ),
         title: Text(
-          'Ubah Alamat',
+          'Ubah Profile',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -92,7 +92,7 @@ class _UbahProfileState extends State<UbahProfile> {
                       height: 100,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: Image.asset('assets/img/profile.jpg'),
+                        child: Image.asset('assets/profile.jpg'),
                       ),
                     ),
                     Positioned(
@@ -130,12 +130,24 @@ class _UbahProfileState extends State<UbahProfile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Nama Lengkap',
+                            'Email',
                             style: labelFormat,
                           ),
                           SizedBox(height: 8.0),
                           TextField(
                             controller: _nameController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              isDense: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0,
+                                horizontal: 20.0,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -150,9 +162,20 @@ class _UbahProfileState extends State<UbahProfile> {
                           SizedBox(height: 8.0),
                           TextField(
                             controller: _usernameController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              isDense: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0,
+                                horizontal: 20.0,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
                           ),
-                        ],
-                      ),
+                        
                       SizedBox(height: 12.0),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,9 +231,9 @@ class _UbahProfileState extends State<UbahProfile> {
                       ),
                     ],
                   ),
-                ),
+              ] ),
               ),
-            ],
+          )],
           ),
         ),
       ),

@@ -368,7 +368,7 @@ class _TambahBarangState extends State<TambahBarang> {
                                   onPressed: () {
                                     _simpanBarang();
                                     prov.addBarang(Barang(
-                                        image: '' ,
+                                        image: '/jpg' ,
                                         nama: prov.namaController.text,
                                         harga: int.parse(prov.hargaController.text),
                                         stok:int.parse(prov.stokController.text),

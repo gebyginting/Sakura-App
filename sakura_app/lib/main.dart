@@ -6,7 +6,7 @@ import 'package:sakura_app/provider/adduserkasbon.dart';
 import 'package:sakura_app/provider/myProvider.dart';
 import 'package:sakura_app/provider/user.dart';
 import 'package:sakura_app/routes/routes.dart';
- 
+import 'package:sakura_app/widgets/HalamanKasbon.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        backgroundColor: Colors.white,
       ),
       home: SplashScreen(),
     );
