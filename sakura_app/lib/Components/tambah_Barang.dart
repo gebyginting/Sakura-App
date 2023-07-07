@@ -1,20 +1,73 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:sakura_app/auth/login.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:sakura_app/provider/myModel.dart';
+import 'package:sakura_app/widgets/dashboard.dart';
 
+import '../provider/myProvider.dart';
 
 class TambahBarang extends StatefulWidget {
   const TambahBarang({Key? key}) : super(key: key);
 
   @override
-  State<TambahBarang> createState() => _TambahItemState();
+  State<TambahBarang> createState() => _TambahBarangState();
+  
 }
 
-class _TambahItemState extends State<TambahBarang> {
- 
+
+class _TambahBarangState extends State<TambahBarang> {
+  File? _imageFile;
+  // String? _gambarBarang;
+  // String? _namaBarangController;
+  // int? _hargaBarangController;
+  // int? _stokBarangController;
+  // String? _kodeBarangController;
+   String? _gambarBarang;
+  TextEditingController _namaBarangController = TextEditingController();
+  TextEditingController _hargaBarangController = TextEditingController();
+  TextEditingController _stokBarangController = TextEditingController();
+  TextEditingController _kodeBarangController = TextEditingController();
+  
+  Future<File?> _pickImage(ImageSource source) async {
+    
+    final picker = ImagePicker();
+    final pickedImage = await picker.getImage(source: source);
+    if (pickedImage != null) {
+      return File(pickedImage.path);
+    }
+    return null;
+  }
+  
+
+  Future<void> _takePicture() async {
+    final picker = ImagePicker();
+    final pickedImage = await picker.getImage(source: ImageSource.camera);
+    if (pickedImage != null) {
+      setState(() {
+        _imageFile = File(pickedImage.path);
+      });
+    }
+  }
+   void _simpanBarang() {
+  final allBarangProvider = Provider.of<AllBarang>(context, listen: false);
+  if (_gambarBarang != _gambarBarang && _namaBarangController != _namaBarangController && _hargaBarangController != _hargaBarangController && _stokBarangController != _stokBarangController && _kodeBarangController != _kodeBarangController) {
+    allBarangProvider.tambahBarang(
+      Barang(
+        image: _gambarBarang !,
+        nama: _namaBarangController.text !,
+        harga: int.parse (_hargaBarangController.text),
+        stok: int.parse(_stokBarangController.text),
+        kode: _kodeBarangController.text !,
+      ),
+    );
+  }
+}
+
   @override
   Widget build(BuildContext context) {
-
     final myHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -22,7 +75,8 @@ class _TambahItemState extends State<TambahBarang> {
         backgroundColor: Color.fromRGBO(239, 239, 239, 1),
         toolbarHeight: myHeight * 0.12,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),color: Colors.black,
+          icon: Icon(Icons.arrow_back_ios),
+          color: Colors.black,
           padding: EdgeInsets.only(left: 30),
           onPressed: () {
             Navigator.pop(context);
@@ -57,25 +111,57 @@ class _TambahItemState extends State<TambahBarang> {
                       padding: const EdgeInsets.only(top: 30, right: 5),
                       child: Column(
                         children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Login(),  
-                                ),
-                              );
+                          GestureDetector(
+                            onTap: () async {
+                              final image =
+                                  await _pickImage(ImageSource.camera);
+                              if (image != null) {
+                                setState(() {
+                                  _imageFile = File(image.path);
+                                });
+                              }
                             },
-                            child: Container(
-                              width: 180,
-                              height: 140,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: AssetImage('assets/cam.png'),
-                                  fit: BoxFit.cover,
+                            child: Stack(
+                              children: [
+                                Container(
+                                  width: 180,
+                                  height: 140,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                      image: _imageFile != null
+                                          ? FileImage(_imageFile!)
+                                              as ImageProvider<Object>
+                                          : AssetImage('assets/cam.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
-                              ),
+                                if (_imageFile != null)
+                                  Positioned(
+                                    top: 8,
+                                    right: 8,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _imageFile = null;
+                                        });
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white,
+                                        ),
+                                        padding: EdgeInsets.all(4),
+                                        child: Icon(
+                                          Icons.close,
+                                          color: Colors.black,
+                                          size: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
                             ),
                           ),
                           SizedBox(height: 15),
@@ -86,11 +172,10 @@ class _TambahItemState extends State<TambahBarang> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                    height: 10,
-                                  ),
+                                  SizedBox(height: 10),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Nama         :",
@@ -120,7 +205,8 @@ class _TambahItemState extends State<TambahBarang> {
                                   ),
                                   SizedBox(height: 10),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Harga / pc :",
@@ -150,7 +236,8 @@ class _TambahItemState extends State<TambahBarang> {
                                   ),
                                   SizedBox(height: 10),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Stok            :",
@@ -160,7 +247,8 @@ class _TambahItemState extends State<TambahBarang> {
                                       ),
                                       Expanded(
                                         child: Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Expanded(
                                               child: TextFormField(
@@ -185,8 +273,9 @@ class _TambahItemState extends State<TambahBarang> {
                                               "pcs                ",
                                               maxLines: 2,
                                               style: GoogleFonts.notoSansThai(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -195,7 +284,8 @@ class _TambahItemState extends State<TambahBarang> {
                                   ),
                                   SizedBox(height: 6),
                                   Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         "Kode           :",
@@ -226,12 +316,7 @@ class _TambahItemState extends State<TambahBarang> {
                                       ),
                                       InkWell(
                                         onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => Login(),
-                                            ),
-                                          );
+                                          _pickImage(ImageSource.camera);
                                         },
                                         child: Image.asset(
                                           'assets/barcodee.png',
@@ -242,7 +327,6 @@ class _TambahItemState extends State<TambahBarang> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 10),
                                 ],
                               ),
                             ),
@@ -281,7 +365,13 @@ class _TambahItemState extends State<TambahBarang> {
                                 SizedBox(width: 101),
                                 ElevatedButton(
                                   onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                                    _simpanBarang();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DashboardPage(),
+                                      ),
+                                    );
                                   },
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
