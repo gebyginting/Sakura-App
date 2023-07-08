@@ -16,35 +16,43 @@ class EditBarangScreen extends StatefulWidget {
 }
 
 class _EditBarangScreenState extends State<EditBarangScreen> {
+  TextEditingController _imageController = TextEditingController();
+  TextEditingController _namaController = TextEditingController();
+  TextEditingController _hargaController = TextEditingController();
+  TextEditingController _stokController = TextEditingController();
+  TextEditingController _kodeController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    _namaController.text = widget.barang.nama;
-    _hargaController.text =
-        NumberFormat.currency(locale: "id", symbol: "", decimalDigits: 0)
-            .format(widget.barang.harga);
-    _stokController.text = widget.barang.stok.toString();
-    _kodeController.text = widget.barang.kode;
-  }
-
-  @override
-  void dispose() {
-    _namaController.dispose();
-    _hargaController.dispose();
-    _stokController.dispose();
-    _kodeController.dispose();
-    super.dispose();
+    //memastikan Provider dipanggil setelah widget sdh terpasang.
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      var prov = Provider.of<AllBarang>(context, listen: false);
+      prov.namaController.text = widget.barang.nama;
+      prov.hargaController.text =
+          NumberFormat.currency(locale: "id", symbol: "", decimalDigits: 0)
+              .format(widget.barang.harga);
+      prov.stokController.text = widget.barang.stok.toString();
+      prov.kodeController.text = widget.barang.kode;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var prov = Provider.of<AllBarang>(context);
-
     var label = GoogleFonts.notoSansThai(
         fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black);
     var isiText = GoogleFonts.notoSansThai(
         fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black);
-   
+
+    @override
+    void dispose() {
+      prov.namaController.dispose();
+      prov.hargaController.dispose();
+      prov.stokController.dispose();
+      prov.kodeController.dispose();
+      super.dispose();
+    }
 
     return Scaffold(
       appBar: MyAppBar(title: 'Edit Barang'),
@@ -79,7 +87,7 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
                         Text("Nama         : ", style: label),
                         Expanded(
                           child: TextField(
-                            controller: _namaController,
+                            controller: prov.namaController,
                             decoration: InputDecoration(
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(
@@ -107,7 +115,7 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
                         Text("Harga / pc : ", style: label),
                         Expanded(
                           child: TextField(
-                            controller: _hargaController,
+                            controller: prov.hargaController,
                             decoration: InputDecoration(
                               prefixText: 'Rp ',
                               prefixStyle: label,
@@ -138,7 +146,7 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
                         SizedBox(
                           width: 45,
                           child: TextField(
-                            controller: _stokController,
+                            controller: prov.stokController,
                             decoration: InputDecoration(
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(
@@ -169,7 +177,7 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
                         SizedBox(
                           width: 130,
                           child: TextField(
-                            controller: _kodeController,
+                            controller: prov.kodeController,
                             decoration: InputDecoration(
                               isDense: true,
                               contentPadding: EdgeInsets.symmetric(
@@ -209,11 +217,11 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
                           onPressed: () {
                             final updatedBarang = Barang(
                               image: widget.barang.image,
-                              nama: _namaController.text,
-                              harga: int.parse(_hargaController.text
+                              nama: prov.namaController.text,
+                              harga: int.parse(prov.hargaController.text
                                   .replaceAll(RegExp(r'[^0-9]'), '')),
-                              stok: int.parse(_stokController.text),
-                              kode: _kodeController.text,
+                              stok: int.parse(prov.stokController.text),
+                              kode: prov.kodeController.text,
                             );
                             prov.updateBarang(updatedBarang);
                             ScaffoldMessenger.of(context).showSnackBar(

@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:intl/intl.dart';
-import 'package:sakura_app/Components/Tambah_Barang.dart';
 import 'package:sakura_app/provider/myModel.dart';
 
 import '../widgets/changePwProfile.dart';
@@ -83,33 +80,19 @@ class AllBarang extends ChangeNotifier {
 
   //ambil isi dari list barang
   List<Barang> get listBarang => myList.toList();
- 
+
   void addBarang(Barang newBarang) {
     myList.add(newBarang);
     notifyListeners();
   }
-  TextEditingController _imageController = TextEditingController();
-  TextEditingController _namaController = TextEditingController();
-  TextEditingController _hargaController = TextEditingController();
-  TextEditingController _stokController = TextEditingController();
-  TextEditingController _kodeController = TextEditingController();
-
- 
-
-  TextEditingController get imageController => _imageController;
-  TextEditingController get namaController => _namaController;
-  TextEditingController get hargaController => _hargaController;
-  TextEditingController get stokController => _stokController;
-  TextEditingController get kodeController => _kodeController;
-  String? hasilScan;
 
   //fitur cari barang dengan search box
-searchTextFiled(String query) {
-  if (query.isEmpty) {
-    myList = myList.toList();
-    notifyListeners();
-    return;
-  }
+  searchTextFiled(String query) {
+    if (query.isEmpty) {
+      myList = myList.toList();
+      notifyListeners();
+      return;
+    }
     final suggestions = AllBarang().myList.where((item) {
       final namaBarang = item.nama.toLowerCase();
       final input = query.toLowerCase();
@@ -141,15 +124,36 @@ searchTextFiled(String query) {
     myList.remove(barang);
     notifyListeners();
   }
+
 // menambah barang ke dasboard
-void tambahBarang(Barang barang) {
-  myList.add(barang);
-  notifyListeners();
-}
+  void tambahBarang(Barang barang) {
+    myList.add(barang);
+    notifyListeners();
+  }
 
+  //TAMBAH BARANG
+  TextEditingController _imageController = TextEditingController();
+  TextEditingController _namaController = TextEditingController();
+  TextEditingController _hargaController = TextEditingController();
+  TextEditingController _stokController = TextEditingController();
+  TextEditingController _kodeController = TextEditingController();
 
+  TextEditingController get imageController => _imageController;
+  TextEditingController get namaController => _namaController;
+  TextEditingController get hargaController => _hargaController;
+  TextEditingController get stokController => _stokController;
+  TextEditingController get kodeController => _kodeController;
+  String? hasilScan;
 
+  Future scanBarcodeForItem() async {
+    String hasilScan;
+    hasilScan = await FlutterBarcodeScanner.scanBarcode(
+        ('#009922'), "Batal", true, ScanMode.DEFAULT);
 
+    if (hasilScan != "-1") {
+      _kodeController.text = hasilScan;
+    }
+  }
 
   //untuk edit barang
   void updateBarang(Barang updatedBarang) {
@@ -162,7 +166,8 @@ void tambahBarang(Barang barang) {
       notifyListeners();
     }
   }
-   textSearch(String query) {
+
+  textSearch(String query) {
     final suggestions = AllBarang().myList.where((item) {
       final namaBarang = item.nama.toLowerCase();
       final input = query.toLowerCase();
@@ -172,18 +177,7 @@ void tambahBarang(Barang barang) {
 
     myList = suggestions;
   }
-  Future scanBarcodeForItem() async {
-    String hasilScan;
-    hasilScan = await FlutterBarcodeScanner.scanBarcode(
-        ('#009922'), "Batal", true, ScanMode.DEFAULT);
 
-    if (hasilScan != "-1") {
-      _kodeController.text = hasilScan;
-    }
-  }
-
-
- 
   Future editBarcode() async {
     var getCode = await FlutterBarcodeScanner.scanBarcode(
         ('#009922'), "Batal", true, ScanMode.DEFAULT);
@@ -191,21 +185,10 @@ void tambahBarang(Barang barang) {
     notifyListeners();
   }
 
- getUserDatatmp(int index) {
+  getUserDatatmp(int index) {
     return myList[index];
   }
 }
-
-//EDIT BARANG
-final TextEditingController _namaController = TextEditingController();
-final TextEditingController _hargaController = TextEditingController();
-final TextEditingController _stokController = TextEditingController();
-final TextEditingController _kodeController = TextEditingController();
-
-TextEditingController get namaController => _namaController;
-TextEditingController get hargaController => _hargaController;
-TextEditingController get stokController => _stokController;
-TextEditingController get kodeController => _kodeController;
 
 class HistoryFilter extends ChangeNotifier {
   final List<String> _historyFilter = [
@@ -279,10 +262,6 @@ class EditAlamat extends ChangeNotifier {
   TextEditingController kotaController = TextEditingController();
   TextEditingController provinsiController = TextEditingController();
 
-     
-
-    
-
   void dispose() {
     pemilikController.dispose();
     alamatController.dispose();
@@ -312,8 +291,10 @@ class CardData extends ChangeNotifier {
   bool isSelecting = false;
 
   List<Map<String, dynamic>> cardDataList = [
-    {'nama': ' ', 'harga': ' ', 'isChecked': false},
-  
+    {'nama': 'Nama Pembeli 1', 'harga': 'Rp. 12.000,00', 'isChecked': false},
+    {'nama': 'Nama Pembeli 2', 'harga': 'Rp. 5.000,00', 'isChecked': false},
+    {'nama': 'Nama Pembeli 3', 'harga': 'Rp. 20.000,00', 'isChecked': false},
+    {'nama': 'Nama Pembeli 4', 'harga': 'Rp. 20.000,00', 'isChecked': false},
   ];
   List<int> selectedIndices = [];
 
@@ -346,7 +327,15 @@ class CardData extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  void backNormal() {
+    selectedIndices.clear();
+    isSelecting = false; // Reset isSelecting when removing selections
+
+    notifyListeners();
+  }
 }
+
 class MyRoutes extends ChangeNotifier {
   List pageList = [
     DashboardPage(),
@@ -374,6 +363,7 @@ class Auth extends ChangeNotifier {
     notifyListeners();
   }
 }
+
 class RangeDatePicker extends ChangeNotifier {
   // DateTimeRange selectedRangeDate =
   //     DateTimeRange(start: DateTime(2023), end: DateTime(2024));

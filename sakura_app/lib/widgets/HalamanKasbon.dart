@@ -70,7 +70,7 @@ class HalamanKasbon extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        card['nama'],
+                                        card[index]['nama'],
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 13,
