@@ -327,13 +327,6 @@ class CardData extends ChangeNotifier {
 
     notifyListeners();
   }
-
-  void backNormal() {
-    selectedIndices.clear();
-    isSelecting = false; // Reset isSelecting when removing selections
-
-    notifyListeners();
-  }
 }
 
 class MyRoutes extends ChangeNotifier {

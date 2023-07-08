@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sakura_app/Components/Halaman_Kasbon.dart';
 import 'package:sakura_app/provider/adduserkasbon.dart';
-import 'package:sakura_app/widgets/alamat.dart';
+// import 'package:sakura_app/widgets/alamat.dart';
 
 class TambahKasbon extends StatefulWidget {
   const TambahKasbon({Key? key});
@@ -282,8 +282,8 @@ class _TambahKasbonState extends State<TambahKasbon> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => HalamanKasbon(
-                                  name: _namaPelangganController.text,
-                                  harga: _totalHutangController.text,
+                                  // name: _namaPelangganController.text,
+                                  // harga: _totalHutangController.text,
                                 ),
                               ),
                             );

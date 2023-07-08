@@ -25,7 +25,7 @@ class _MyBottomNavbarState extends State<MyBottomNavbar> {
           index: controller.tabIndex,
           children: const [
             DashboardPage(),
-            HalamanKasbon(harga: '', name: ''),
+            HalamanKasbon(),
             TambahBarang(),
             HistoryPage(),
             Profiledlogout()
