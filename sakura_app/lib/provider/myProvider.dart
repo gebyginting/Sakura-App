@@ -132,6 +132,17 @@ class AllBarang extends ChangeNotifier {
   }
 }
 
+//EDIT BARANG
+final TextEditingController _namaController = TextEditingController();
+final TextEditingController _hargaController = TextEditingController();
+final TextEditingController _stokController = TextEditingController();
+final TextEditingController _kodeController = TextEditingController();
+
+TextEditingController get namaController => _namaController;
+TextEditingController get hargaController => _hargaController;
+TextEditingController get stokController => _stokController;
+TextEditingController get kodeController => _kodeController;
+
 class HistoryFilter extends ChangeNotifier {
   final List<String> _historyFilter = [
     "Semua",

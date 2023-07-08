@@ -16,11 +16,6 @@ class EditBarangScreen extends StatefulWidget {
 }
 
 class _EditBarangScreenState extends State<EditBarangScreen> {
-  final TextEditingController _namaController = TextEditingController();
-  final TextEditingController _hargaController = TextEditingController();
-  final TextEditingController _stokController = TextEditingController();
-  final TextEditingController _kodeController = TextEditingController();
-
   @override
   void initState() {
     super.initState();
