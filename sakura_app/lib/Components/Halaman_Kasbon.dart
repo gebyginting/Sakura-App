@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sakura_app/Components/Tambah_Barang.dart';
+import 'package:sakura_app/Components/Tambah_Kasbon.dart';
+import 'package:sakura_app/provider/adduserkasbon.dart';
+import 'package:sakura_app/provider/user.dart';
 import '../provider/myProvider.dart';
 
 class HalamanKasbon extends StatelessWidget {
-  const HalamanKasbon({Key? key});
-
+  const HalamanKasbon({Key? key, required this.name, required this.harga})
+      : super(key: key);
+  final String name;
+  final String harga;
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<KasbonProvider>(context);
+    final name = userProvider.name;
+    final harga = userProvider.harga;
     return ChangeNotifierProvider<CardData>(
       create: (_) => CardData(),
       child: Consumer<CardData>(builder: (context, cardData, _) {
@@ -70,9 +79,10 @@ class HalamanKasbon extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        card[index]['nama'],
+                                        '$name',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
+                                          color: Colors.black,
                                           fontSize: 13,
                                         ),
                                       ),
@@ -87,7 +97,7 @@ class HalamanKasbon extends StatelessWidget {
                                     ],
                                   ),
                                   Text(
-                                    card['harga'],
+                                    ('$harga'),
                                     style: TextStyle(
                                       fontSize: 13,
                                       color: Colors.grey,
@@ -107,7 +117,7 @@ class HalamanKasbon extends StatelessWidget {
                                         'assets/Rectangle 59.png',
                                         width: 70,
                                         height: 70,
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ],
@@ -121,6 +131,22 @@ class HalamanKasbon extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+          floatingActionButton: Positioned(
+            bottom: 20,
+            right: 20,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TambahKasbon()));
+              },
+              backgroundColor: Colors.white,
+              child: Icon(
+                Icons.add,
+                color: Color.fromRGBO(241, 33, 90, 1),
+                size: 24,
+              ),
+            ),
           ),
         );
       }),
