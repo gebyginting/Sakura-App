@@ -4,10 +4,11 @@ import 'package:provider/provider.dart';
 import 'package:sakura_app/provider/user.dart';
 
 class UbahProfile extends StatefulWidget {
-  const UbahProfile({Key? key, required this.email, required this.username})
+  const UbahProfile({Key? key, required this.email, required this.username, required this.name})
       : super(key: key);
 
   final String email;
+  final String name;
   final String username;
 
   @override
@@ -15,6 +16,7 @@ class UbahProfile extends StatefulWidget {
 }
 
 class _UbahProfileState extends State<UbahProfile> {
+  late TextEditingController _nameController;
   late TextEditingController _usernameController;
   late TextEditingController _emailController;
   var labelFormat = GoogleFonts.notoSansThai(
@@ -26,6 +28,7 @@ class _UbahProfileState extends State<UbahProfile> {
   @override
   void initState() {
     super.initState();
+    _nameController = TextEditingController(text: widget.name);
     _usernameController = TextEditingController(text: widget.username);
     _emailController = TextEditingController(text: widget.email);
   }
@@ -33,16 +36,18 @@ class _UbahProfileState extends State<UbahProfile> {
   @override
   void dispose() {
     _usernameController.dispose();
+    _nameController.dispose();
     _emailController.dispose();
     super.dispose();
   }
 
   Future<void> _updateProfile() async {
+    final name = _nameController.text;
     final username = _usernameController.text;
     final email = _emailController.text;
 
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    await userProvider.updateUser(username, email);
+    await userProvider.updateUser(name, username, email);
 
     Navigator.pop(context);
   }
@@ -62,7 +67,7 @@ class _UbahProfileState extends State<UbahProfile> {
           },
         ),
         title: Text(
-          'Ubah Alamat',
+          'Ubah Profile',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -87,7 +92,7 @@ class _UbahProfileState extends State<UbahProfile> {
                       height: 100,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: Image.asset('assets/img/profile.jpg'),
+                        child: Image.asset('assets/profile.jpg'),
                       ),
                     ),
                     Positioned(
@@ -125,12 +130,24 @@ class _UbahProfileState extends State<UbahProfile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Nama Lengkap',
+                            'Email',
                             style: labelFormat,
                           ),
                           SizedBox(height: 8.0),
                           TextField(
-                            controller: _usernameController,
+                            controller: _nameController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              isDense: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0,
+                                horizontal: 20.0,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -144,10 +161,21 @@ class _UbahProfileState extends State<UbahProfile> {
                           ),
                           SizedBox(height: 8.0),
                           TextField(
-                            controller: _emailController,
+                            controller: _usernameController,
+                            decoration: InputDecoration(
+                              filled: true,
+                              isDense: true,
+                              fillColor: Colors.white,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 10.0,
+                                horizontal: 20.0,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
                           ),
-                        ],
-                      ),
+                        
                       SizedBox(height: 12.0),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -203,9 +231,9 @@ class _UbahProfileState extends State<UbahProfile> {
                       ),
                     ],
                   ),
-                ),
+              ] ),
               ),
-            ],
+          )],
           ),
         ),
       ),

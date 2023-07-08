@@ -15,12 +15,12 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final myHeight = MediaQuery.of(context).size.height;
-    final userProvider = Provider.of<UserProvider>(context);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -150,16 +150,20 @@ class _SignupState extends State<Signup> {
                       SizedBox(height: 13),
                       ElevatedButton(
                         onPressed: () {
+                          final name = _nameController.text;
                           final username = _usernameController.text;
                           final email = _emailController.text;
                           final userProvider =
                               Provider.of<UserProvider>(context, listen: false);
-                          userProvider.setUser(username, email);
+                          userProvider.setUser(name, username, email);
 
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Profiledlogout()),
+                                builder: (context) => Profiledlogout(
+                                  
+
+                                )),
                           );
                         },
                         child: Text(

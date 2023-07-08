@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:sakura_app/Components/Tambah_Barang.dart';
-import 'package:sakura_app/auth/Login.dart';
+import 'package:provider/provider.dart';
+import 'package:sakura_app/Components/Halaman_Kasbon.dart';
+import 'package:sakura_app/provider/adduserkasbon.dart';
+import 'package:sakura_app/widgets/alamat.dart';
 
 class TambahKasbon extends StatefulWidget {
   const TambahKasbon({Key? key});
@@ -30,6 +32,19 @@ class _TambahKasbonState extends State<TambahKasbon> {
     _catatanController.dispose();
     _tanggalJatuhTempoController.dispose();
     super.dispose();
+  }
+
+  Future<void> _updateKasbon() async {
+    final name = _namaPelangganController.text;
+    final harga = _totalHutangController.text;
+
+    final userProvider = Provider.of<KasbonProvider>(context, listen: false);
+    await userProvider.updateKasbon(
+      name,
+      harga,
+    );
+
+    Navigator.pop(context);
   }
 
   @override
@@ -262,7 +277,17 @@ class _TambahKasbonState extends State<TambahKasbon> {
                       SizedBox(height: 10),
                       GestureDetector(
                         onTap: () {
-                            
+                          _updateKasbon().then((_) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HalamanKasbon(
+                                  name: _namaPelangganController.text,
+                                  harga: _totalHutangController.text,
+                                ),
+                              ),
+                            );
+                          });
                         },
                         child: Padding(
                           padding: EdgeInsets.only(left: 300),

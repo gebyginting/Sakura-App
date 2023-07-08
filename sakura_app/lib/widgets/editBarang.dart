@@ -39,11 +39,12 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
   @override
   Widget build(BuildContext context) {
     var prov = Provider.of<AllBarang>(context);
+
     var label = GoogleFonts.notoSansThai(
         fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black);
     var isiText = GoogleFonts.notoSansThai(
         fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black);
-    final myHeight = MediaQuery.of(context).size.height;
+   
 
     return Scaffold(
       appBar: MyAppBar(title: 'Edit Barang'),
