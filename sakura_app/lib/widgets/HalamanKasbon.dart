@@ -39,7 +39,7 @@ class HalamanKasbon extends StatelessWidget {
                 color: Color.fromRGBO(249, 241, 241, 1),
                 elevation: 4,
                 child: SizedBox(
-                  height: 500,
+                  height: 450,
                   width: 440,
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

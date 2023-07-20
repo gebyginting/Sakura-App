@@ -160,10 +160,7 @@ class _SignupState extends State<Signup> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Profiledlogout(
-                                  
-
-                                )),
+                                builder: (context) => Profiledlogout()),
                           );
                         },
                         child: Text(

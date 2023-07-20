@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sakura_app/Components/tambah_Barang.dart';
+import 'package:sakura_app/Components/Profile&Logout.dart';
 
 class changepw extends StatefulWidget {
   const changepw({Key? key}) : super(key: key);
@@ -18,6 +18,47 @@ class _changepwState extends State<changepw> {
     super.dispose();
   }
 
+  void _showConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Profiledlogout()),
+          );
+        });
+
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          backgroundColor: Color.fromRGBO(240, 234, 234, 1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: BorderSide(color: Color.fromRGBO(241, 33, 90, 1), width: 2.0),
+          ),
+          content: SizedBox(
+            width: 400,
+            height: 300,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(50, 50, 50, 40),
+                  child: Image.asset('assets/Subtract.png'),
+                ),
+                Text(
+                  'Password Anda\nBerhasil Diganti.',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,7 +70,7 @@ class _changepwState extends State<changepw> {
             children: [
               Positioned(
                 top: 0,
-                child: Image.asset('assets/images/cover1.jpg'),
+                child: Image.asset('assets/cover1.png'),
               ),
               SingleChildScrollView(
                 child: Padding(
@@ -196,10 +237,7 @@ class _changepwState extends State<changepw> {
                       SizedBox(height: 30),
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TambahBarang()));
+                          _showConfirmationDialog();
                         },
                         child: Text(
                           'Selesai',
