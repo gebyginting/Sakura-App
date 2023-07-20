@@ -1,9 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sakura_app/auth/lupa_Password.dart';
 import 'package:sakura_app/auth/signup.dart';
 
+import '../accountDummy/accountList.dart';
+import '../accountDummy/accountModel.dart';
+import '../reusableWidgets/validationDialog.dart';
 import '../widgets/bottomNavbar.dart';
 
 bool _obscurePassword = true;
@@ -16,6 +20,17 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Hapus kontroler saat widget tidak lagi digunakan untuk menghindari memory leaks
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final myHeight = MediaQuery.of(context).size.height;
@@ -50,7 +65,8 @@ class _LoginState extends State<Login> {
                             fontWeight: FontWeight.bold,
                             color: Colors.white)),
                     SizedBox(height: myHeight * 0.2),
-                    TextField(
+                    TextFormField(
+                      controller: _emailController,
                       decoration: InputDecoration(
                         hintText: 'Masukkan Email',
                         labelText: 'Email',
@@ -63,7 +79,8 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     SizedBox(height: 20),
-                    TextField(
+                    TextFormField(
+                      controller: _passwordController,
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
                         hintText: 'Masukkan Password',
@@ -109,22 +126,62 @@ class _LoginState extends State<Login> {
                     ]),
                     SizedBox(height: 13),
                     ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyBottomNavbar()),
-                        );
-                      },
-                      child: Text('Log in', style: TextStyle(fontSize: 18)),
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.pink[500],
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 90),
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15)))),
-                    ),
+                        onPressed: () {
+                          // Mendapatkan nilai email dan password dari input TextField
+                          String email = _emailController.text.trim();
+                          String password = _passwordController.text;
+
+                          if (email.isEmpty || password.isEmpty) {
+                            // Jika salah satu atau kedua textfield kosong, tampilkan pesan error
+                            showDialog(
+                                context: context,
+                                builder: (context) => ValidationDialog(
+                                    errMsg:
+                                        'Email dan password tidak boleh kosong.'));
+                          } else {
+                            // Cek apakah email dan password sesuai dengan akun dummy
+                            bool isLoginSuccessful = false;
+                            for (UserAccount account in dummyAccounts) {
+                              if (account.email == email &&
+                                  account.password == password) {
+                                isLoginSuccessful = true;
+                                break;
+                              }
+                            }
+
+                            if (isLoginSuccessful) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MyBottomNavbar(),
+                                ),
+                              );
+                            } else {
+                              // Jika login gagal, tampilkan pesan kesalahan atau notifikasi
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => ValidationDialog(
+                                      errMsg: 'Email atau password salah!!'));
+                            }
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromRGBO(241, 33, 90, 1),
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.circular(12.0) //border
+                                ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 90, vertical: 18.0)),
+                        child: Text(
+                          "Log in",
+                          style: GoogleFonts.outfit(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                          ),
+                        )),
                     SizedBox(height: 10),
                     RichText(
                       text: TextSpan(
@@ -148,12 +205,12 @@ class _LoginState extends State<Login> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 15),
                     Row(
                       children: [
                         Expanded(
                           child: Divider(
-                            color: Colors.black,
+                            color: Color.fromRGBO(154, 154, 154, 1),
                             thickness: 1,
                           ),
                         ),
@@ -162,14 +219,14 @@ class _LoginState extends State<Login> {
                           child: Text(
                             'Atau masuk dengan',
                             style: TextStyle(
-                              color: const Color.fromARGB(255, 37, 36, 36),
+                              color: const Color.fromRGBO(154, 154, 154, 1),
                               fontSize: 11,
                             ),
                           ),
                         ),
                         Expanded(
                           child: Divider(
-                            color: Colors.black,
+                            color: Color.fromRGBO(154, 154, 154, 1),
                             thickness: 1,
                           ),
                         ),
@@ -182,31 +239,37 @@ class _LoginState extends State<Login> {
                         Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.red, width: 2),
+                            border: Border.all(
+                                color: Color.fromRGBO(241, 33, 90, 1),
+                                width: 1),
                           ),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              // Aksi ketika tombol Twitter ditekan
+                            },
                             icon: FaIcon(
                               FontAwesomeIcons.twitter,
                               color: Color.fromARGB(255, 108, 186, 250),
-                              size: 30,
+                              size: 22,
                             ),
                           ),
                         ),
                         SizedBox(width: 10),
                         Container(
-                          width: 50,
-                          height: 50,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.red, width: 2),
+                            border: Border.all(
+                                color: Color.fromRGBO(241, 33, 90, 1),
+                                width: 1),
                           ),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              // Aksi ketika tombol Google ditekan
+                            },
                             icon: FaIcon(
                               FontAwesomeIcons.google,
                               color: Colors.red,
-                              size: 30,
+                              size: 22,
                             ),
                           ),
                         ),
@@ -214,14 +277,18 @@ class _LoginState extends State<Login> {
                         Container(
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.red, width: 2),
+                            border: Border.all(
+                                color: Color.fromRGBO(241, 33, 90, 1),
+                                width: 1),
                           ),
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              // Aksi ketika tombol Facebook ditekan
+                            },
                             icon: FaIcon(
                               FontAwesomeIcons.facebookF,
                               color: Colors.blue,
-                              size: 30,
+                              size: 22,
                             ),
                           ),
                         ),
