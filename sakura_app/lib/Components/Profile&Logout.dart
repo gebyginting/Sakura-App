@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sakura_app/auth/ganti_Password.dart';
 import 'package:sakura_app/provider/myProvider.dart';
 import 'package:sakura_app/widgets/alamat.dart';
+import 'package:sakura_app/widgets/changePwProfile.dart';
 import 'package:sakura_app/widgets/editprofile.dart';
 import '../provider/user.dart';
 
@@ -19,7 +20,7 @@ class _ProfiledlogoutState extends State<Profiledlogout> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
-    final name = userProvider.name;
+    final nama_lengkap = userProvider.namalengkap;
     final username = userProvider.username;
     final email = userProvider.email;
     final myHeight = MediaQuery.of(context).size.height;
@@ -73,8 +74,8 @@ class _ProfiledlogoutState extends State<Profiledlogout> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '$name',
-                            style: TextStyle(fontSize: 16),
+                            '$nama_lengkap',
+                            style: TextStyle(fontSize: 16, color: Colors.white),
                           ),
                           SizedBox(width: 4.0),
                           InkWell(
@@ -83,7 +84,7 @@ class _ProfiledlogoutState extends State<Profiledlogout> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => UbahProfile(
-                                    name: name,
+                                    nama_lengkap: nama_lengkap,
                                     username: username,
                                     email: email,
                                   ),
@@ -101,7 +102,7 @@ class _ProfiledlogoutState extends State<Profiledlogout> {
                       SizedBox(height: 8.0),
                       Text(
                         '$username',
-                        style: TextStyle(fontSize: 15),
+                        style: TextStyle(fontSize: 15, color: Colors.white),
                       ),
                     ],
                   ),
@@ -264,7 +265,7 @@ class _ProfiledlogoutState extends State<Profiledlogout> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => changepw(),
+                                    builder: (context) => ChangePwProfile(),
                                   ),
                                 );
                               },

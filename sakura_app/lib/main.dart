@@ -15,7 +15,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => AlamatProvider()),
       ChangeNotifierProvider(create: (_) => UserProvider()),
       ChangeNotifierProvider(create: (_) => KasbonProvider()),
-      ChangeNotifierProvider(create: (_) => CardData())
+      ChangeNotifierProvider(create: (_) => CardData()),
+      ChangeNotifierProvider(create: (_) => RangeDatePicker()),
     ],
     child: const MyApp(),
   ));

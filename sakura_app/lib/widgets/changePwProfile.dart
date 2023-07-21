@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sakura_app/auth/login.dart';
 
 class ChangePwProfile extends StatefulWidget {
   const ChangePwProfile({super.key});
@@ -11,6 +12,47 @@ class ChangePwProfile extends StatefulWidget {
 class _ChangePwProfileState extends State<ChangePwProfile> {
   var labelFormat = GoogleFonts.notoSansThai(
       fontSize: 15.0, fontWeight: FontWeight.w600, color: Colors.black);
+
+  void _showConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Login()),
+          );
+        });
+
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          backgroundColor: Color.fromRGBO(240, 234, 234, 1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: BorderSide(color: Color.fromRGBO(241, 33, 90, 1), width: 2.0),
+          ),
+          content: SizedBox(
+            width: 400,
+            height: 300,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(50, 50, 50, 40),
+                  child: Image.asset('assets/Subtract.png'),
+                ),
+                Text(
+                  'Password Anda\nBerhasil Diganti.',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,6 +208,7 @@ class _ChangePwProfileState extends State<ChangePwProfile> {
                 padding: const EdgeInsets.only(top: 35, left: 240),
                 child: ElevatedButton(
                   onPressed: () {
+                    _showConfirmationDialog();
                     // Navigator.pop(context);
                     // ScaffoldMessenger.of(context)
                     //     .showSnackBar(SuccessChangePw().getSnackBar(context));

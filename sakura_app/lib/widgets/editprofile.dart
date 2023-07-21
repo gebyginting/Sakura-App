@@ -4,11 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:sakura_app/provider/user.dart';
 
 class UbahProfile extends StatefulWidget {
-  const UbahProfile({Key? key, required this.email, required this.username, required this.name})
+  const UbahProfile(
+      {Key? key,
+      required this.email,
+      required this.username,
+      required this.nama_lengkap})
       : super(key: key);
 
   final String email;
-  final String name;
+  final String nama_lengkap;
   final String username;
 
   @override
@@ -16,7 +20,7 @@ class UbahProfile extends StatefulWidget {
 }
 
 class _UbahProfileState extends State<UbahProfile> {
-  late TextEditingController _nameController;
+  late TextEditingController _nama_lengkapController;
   late TextEditingController _usernameController;
   late TextEditingController _emailController;
   var labelFormat = GoogleFonts.notoSansThai(
@@ -28,7 +32,7 @@ class _UbahProfileState extends State<UbahProfile> {
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.name);
+    _nama_lengkapController = TextEditingController(text: widget.nama_lengkap);
     _usernameController = TextEditingController(text: widget.username);
     _emailController = TextEditingController(text: widget.email);
   }
@@ -36,13 +40,13 @@ class _UbahProfileState extends State<UbahProfile> {
   @override
   void dispose() {
     _usernameController.dispose();
-    _nameController.dispose();
+    _nama_lengkapController.dispose();
     _emailController.dispose();
     super.dispose();
   }
 
   Future<void> _updateProfile() async {
-    final name = _nameController.text;
+    final name = _nama_lengkapController.text;
     final username = _usernameController.text;
     final email = _emailController.text;
 
@@ -124,116 +128,115 @@ class _UbahProfileState extends State<UbahProfile> {
                 color: Color.fromRGBO(249, 241, 241, 1),
                 child: Padding(
                   padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Email',
-                            style: labelFormat,
-                          ),
-                          SizedBox(height: 8.0),
-                          TextField(
-                            controller: _nameController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              isDense: true,
-                              fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0,
-                                horizontal: 20.0,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
+                  child: Column(children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Nama Lengkap',
+                          style: labelFormat,
+                        ),
+                        SizedBox(height: 8.0),
+                        TextField(
+                          controller: _nama_lengkapController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            isDense: true,
+                            fillColor: Colors.white,
+                            contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 20.0,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(height: 12.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Username',
-                            style: labelFormat,
-                          ),
-                          SizedBox(height: 8.0),
-                          TextField(
-                            controller: _usernameController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              isDense: true,
-                              fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0,
-                                horizontal: 20.0,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 12.0),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Username',
+                          style: labelFormat,
+                        ),
+                        SizedBox(height: 8.0),
+                        TextField(
+                          controller: _usernameController,
+                          decoration: InputDecoration(
+                            filled: true,
+                            isDense: true,
+                            fillColor: Colors.white,
+                            contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 20.0,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
                           ),
-                        
-                      SizedBox(height: 12.0),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Email',
-                            style: labelFormat,
-                          ),
-                          SizedBox(height: 8.0),
-                          TextField(
-                            controller: _emailController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              isDense: true,
-                              fillColor: Colors.white,
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 10.0,
-                                horizontal: 20.0,
-                              ),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        SizedBox(height: 12.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Email',
+                              style: labelFormat,
+                            ),
+                            SizedBox(height: 8.0),
+                            TextField(
+                              controller: _emailController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                isDense: true,
+                                fillColor: Colors.white,
+                                contentPadding: EdgeInsets.symmetric(
+                                  vertical: 10.0,
+                                  horizontal: 20.0,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      Align(
-                        alignment: AlignmentDirectional.centerEnd,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 15),
-                          child: ElevatedButton(
-                            onPressed: _updateProfile,
-                            child: Text(
-                              'Simpan',
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 14,
+                          ],
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional.centerEnd,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 15),
+                            child: ElevatedButton(
+                              onPressed: _updateProfile,
+                              child: Text(
+                                'Simpan',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 14,
+                                ),
                               ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromRGBO(241, 33, 90, 1),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(16.0),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 30,
-                                vertical: 5.0,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor:
+                                    const Color.fromRGBO(241, 33, 90, 1),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16.0),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 30,
+                                  vertical: 5.0,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-              ] ),
-              ),
-          )],
+                      ],
+                    ),
+                  ]),
+                ),
+              )
+            ],
           ),
         ),
       ),

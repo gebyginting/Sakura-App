@@ -291,10 +291,10 @@ class CardData extends ChangeNotifier {
   bool isSelecting = false;
 
   List<Map<String, dynamic>> cardDataList = [
-    {'nama': 'Nama Pembeli 1', 'harga': 'Rp. 12.000,00', 'isChecked': false},
-    {'nama': 'Nama Pembeli 2', 'harga': 'Rp. 5.000,00', 'isChecked': false},
-    {'nama': 'Nama Pembeli 3', 'harga': 'Rp. 20.000,00', 'isChecked': false},
-    {'nama': 'Nama Pembeli 4', 'harga': 'Rp. 20.000,00', 'isChecked': false},
+    {'nama': 'Nama Pembeli 1', 'harga': 'Rp. 12.000', 'isChecked': false},
+    {'nama': 'Nama Pembeli 2', 'harga': 'Rp. 5.000', 'isChecked': false},
+    {'nama': 'Nama Pembeli 3', 'harga': 'Rp. 20.000', 'isChecked': false},
+    {'nama': 'Nama Pembeli 4', 'harga': 'Rp. 20.000', 'isChecked': false},
   ];
   List<int> selectedIndices = [];
 
@@ -327,40 +327,19 @@ class CardData extends ChangeNotifier {
 
     notifyListeners();
   }
-}
 
-class MyRoutes extends ChangeNotifier {
-  List pageList = [
-    DashboardPage(),
-    DetailKasbon(),
-    HistoryPage(),
-    ChangePwProfile(),
-  ];
-
-  int _currentIndex = 0;
-
-  int get currentIndex => _currentIndex;
-
-  set currentIndex(int index) {
-    _currentIndex = index;
+  void addKasbon(Map<String, dynamic> kasbon) {
+    cardDataList.add(kasbon);
     notifyListeners();
   }
-}
 
-class Auth extends ChangeNotifier {
-  bool _obscurePassword = true;
-  bool get osbcurePassword => _obscurePassword;
-
-  void hidePassword() {
-    _obscurePassword = !_obscurePassword;
+  void updateKasbon(int index, Map<String, dynamic> updatedKasbon) {
+    cardDataList[index] = updatedKasbon;
     notifyListeners();
   }
 }
 
 class RangeDatePicker extends ChangeNotifier {
-  // DateTimeRange selectedRangeDate =
-  //     DateTimeRange(start: DateTime(2023), end: DateTime(2024));
-
   final startDate = DateTime(2023);
   final endDate = DateTime(2024);
 
@@ -388,6 +367,6 @@ class RangeDatePicker extends ChangeNotifier {
   }
 
   String getDateTimeSelected(BuildContext context) {
-    return DateFormat('dd mmmm yyyy').format(selectedDate);
+    return DateFormat('dd MMMM yyyy').format(selectedDate);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sakura_app/Components/edit_kasbon.dart';
 import 'package:signature/signature.dart';
 
 class TandaTangan extends StatefulWidget {
@@ -14,49 +15,6 @@ class _TandaTanganState extends State<TandaTangan> {
     penColor: Colors.white,
     exportBackgroundColor: Color.fromRGBO(241, 33, 90, 1),
   );
-
-  void _showConfirmationDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          title: Text('Konfirmasi'),
-          content: Text('Apakah Anda yakin ingin menyimpan tanda tangan?'),
-          actions: [
-            TextButton(
-              child: Text(
-                'Batal',
-                style: TextStyle(color: Color.fromRGBO(241, 33, 90, 1)),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            ElevatedButton(
-              child: Text('Simpan'),
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.0),
-                ),
-                primary: Color.fromRGBO(241, 33, 90, 1),
-              ),
-              onPressed: () {
-                // Tambahkan kode untuk menyimpan tanda tangan
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void _simpanTandaTangan() {
-    _showConfirmationDialog();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +121,10 @@ class _TandaTanganState extends State<TandaTangan> {
                             ),
                           ),
                           ElevatedButton(
-                            onPressed: _simpanTandaTangan,
+                            onPressed: () {
+                              // Navigasi kembali ke halaman EditKasbon
+                              Navigator.pop(context);
+                            },
                             child: Text(
                               'Simpan',
                               style: TextStyle(

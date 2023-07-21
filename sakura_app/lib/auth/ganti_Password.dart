@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sakura_app/Components/Profile&Logout.dart';
+import 'package:sakura_app/widgets/bottomNavbar.dart';
 
 class changepw extends StatefulWidget {
   const changepw({Key? key}) : super(key: key);
@@ -25,7 +26,9 @@ class _changepwState extends State<changepw> {
         Future.delayed(Duration(seconds: 3), () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Profiledlogout()),
+            MaterialPageRoute(
+                builder: (context) =>
+                    MyBottomNavbar()), // Ganti dengan halaman Profile yang sesuai
           );
         });
 

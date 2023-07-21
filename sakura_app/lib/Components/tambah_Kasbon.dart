@@ -5,7 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sakura_app/Components/Halaman_Kasbon.dart';
 import 'package:sakura_app/provider/adduserkasbon.dart';
-// import 'package:sakura_app/widgets/alamat.dart';
+import 'package:sakura_app/provider/myProvider.dart';
+import 'package:sakura_app/widgets/tandatangan.dart';
 
 class TambahKasbon extends StatefulWidget {
   const TambahKasbon({Key? key});
@@ -19,36 +20,15 @@ class _TambahKasbonState extends State<TambahKasbon> {
       TextEditingController();
   final TextEditingController _totalHutangController = TextEditingController();
   final TextEditingController _catatanController = TextEditingController();
-  final TextEditingController _tanggalJatuhTempoController =
-      TextEditingController();
-  final numberFormat = NumberFormat.decimalPattern('id');
+
+  final numberFormat =
+      NumberFormat.currency(locale: 'id', symbol: 'Rp. ', decimalDigits: 0);
   int _currentInputLength = 0;
   int _maxInputLength = 150;
 
   @override
-  void dispose() {
-    _namaPelangganController.dispose();
-    _totalHutangController.dispose();
-    _catatanController.dispose();
-    _tanggalJatuhTempoController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _updateKasbon() async {
-    final name = _namaPelangganController.text;
-    final harga = _totalHutangController.text;
-
-    final userProvider = Provider.of<KasbonProvider>(context, listen: false);
-    await userProvider.updateKasbon(
-      name,
-      harga,
-    );
-
-    Navigator.pop(context);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var prov = Provider.of<RangeDatePicker>(context);
     final myHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -76,7 +56,7 @@ class _TambahKasbonState extends State<TambahKasbon> {
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
                 SizedBox(height: 15),
@@ -84,7 +64,7 @@ class _TambahKasbonState extends State<TambahKasbon> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  color: Colors.pink[400],
+                  color: Color.fromRGBO(241, 33, 90, 1),
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Column(children: [
@@ -95,21 +75,26 @@ class _TambahKasbonState extends State<TambahKasbon> {
                           fontWeight: FontWeight.bold,
                         ),
                         decoration: InputDecoration(
-                          hintText: 'Nama Pelanggan',
-                          hintStyle: TextStyle(
+                          labelText: 'Nama Pelanggan',
+                          labelStyle: TextStyle(
                             fontSize: 14,
                             color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                           ),
                           contentPadding: EdgeInsets.all(12),
                           filled: true,
-                          fillColor: Colors.pink[400],
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                            ),
-                          ),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6),
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                              )),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6),
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                              )),
                         ),
                       ),
                       SizedBox(height: 10),
@@ -119,7 +104,7 @@ class _TambahKasbonState extends State<TambahKasbon> {
                             'Total Hutang: Rp  ',
                             style: GoogleFonts.notoSansThai(
                               fontSize: 12,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w500,
                               color: Colors.white,
                             ),
                           ),
@@ -132,19 +117,20 @@ class _TambahKasbonState extends State<TambahKasbon> {
                                 maxLength: 7,
                                 controller: _totalHutangController,
                                 style: GoogleFonts.notoSansThai(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
                                   color: Colors.white,
                                 ),
                                 decoration: InputDecoration(
                                   counterText: '',
                                   hintStyle: TextStyle(
                                     color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w500,
                                   ),
+                                  isDense: true,
                                   contentPadding: EdgeInsets.all(12),
                                   filled: true,
-                                  fillColor: Color.fromARGB(255, 187, 95, 123),
+                                  fillColor: Color.fromRGBO(255, 255, 255, 0.5),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(8),
                                       borderSide: BorderSide.none),
@@ -152,9 +138,8 @@ class _TambahKasbonState extends State<TambahKasbon> {
                                 onChanged: (value) {
                                   final cleanedValue =
                                       value.replaceAll('.', '');
-                                  final formattedValue =
-                                      NumberFormat('#,###', 'id')
-                                          .format(int.parse(cleanedValue));
+                                  final formattedValue = numberFormat
+                                      .format(int.parse(cleanedValue));
                                   _totalHutangController.value =
                                       TextEditingValue(
                                     text: formattedValue,
@@ -171,24 +156,67 @@ class _TambahKasbonState extends State<TambahKasbon> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         keyboardType: TextInputType.phone,
-                        maxLength: 13,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                         decoration: InputDecoration(
-                            hintText: 'No. Handphone',
-                            hintStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            contentPadding: EdgeInsets.all(12),
-                            filled: true,
-                            fillColor: Colors.pink[400],
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(8),
-                              borderSide: BorderSide(
-                                color: Colors.white,
-                              ),
-                            ),
-                            counterText: ''),
+                          labelText: 'No Handphone',
+                          labelStyle: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          contentPadding: EdgeInsets.all(12),
+                          filled: true,
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6),
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                              )),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6),
+                              borderSide: const BorderSide(
+                                width: 1,
+                                color: Color.fromRGBO(255, 255, 255, 1),
+                              )),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                              flex: 3,
+                              child: InputDatePickerFormField(
+                                fieldLabelText: 'tgl hutang',
+                                initialDate: prov.rangeDate.start,
+                                firstDate: prov.startDate,
+                                lastDate: prov.endDate,
+                              )),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                              flex: 3,
+                              child: InputDatePickerFormField(
+                                  fieldLabelText: 'jatuh tempo',
+                                  initialDate: prov.rangeDate.end,
+                                  firstDate: prov.startDate,
+                                  lastDate: prov.endDate)),
+                          Expanded(
+                            child: IconButton(
+                                onPressed: () {
+                                  prov.pickDateRange(context);
+                                },
+                                icon: Icon(
+                                  Icons.calendar_today_outlined,
+                                  color: Color.fromARGB(206, 255, 255, 255),
+                                )),
+                          )
+                        ],
                       ),
                       SizedBox(height: 15),
                       Row(
@@ -227,10 +255,10 @@ class _TambahKasbonState extends State<TambahKasbon> {
                           ),
                           contentPadding: EdgeInsets.all(12),
                           filled: true,
-                          fillColor: Colors.pink[400],
-                          border: OutlineInputBorder(
+                          enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(
+                              width: 1,
                               color: Colors.white,
                             ),
                           ),
@@ -240,19 +268,19 @@ class _TambahKasbonState extends State<TambahKasbon> {
                       ),
                       SizedBox(height: 15),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             'TTD Pelanggan',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 14,
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(width: 90),
                           Text(
                             'KTP Pelanggan',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 14,
                               color: Colors.white,
                             ),
                           ),
@@ -260,45 +288,76 @@ class _TambahKasbonState extends State<TambahKasbon> {
                       ),
                       SizedBox(height: 10),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Image.asset(
-                            'assets/tanda_tangan.png',
-                            width: 100,
-                            height: 100,
+                          Container(
+                            height: 70,
+                            width: 110,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, 0.25),
+                                  spreadRadius: 0,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => TandaTangan(),
+                                      ),
+                                    );
+                                  },
+                                  child: Image.asset(
+                                    'assets/Rectangle 58.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                )),
                           ),
-                          SizedBox(width: 120),
-                          Image.asset(
-                            'assets/e-ktp.png',
-                            width: 100,
-                            height: 100,
+                          Container(
+                            height: 70,
+                            width: 110,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromRGBO(0, 0, 0, 0.25),
+                                  spreadRadius: 0,
+                                  blurRadius: 4,
+                                  offset: Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.asset(
+                                'assets/Rectangle 59.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
-                      GestureDetector(
-                        onTap: () {
-                          _updateKasbon().then((_) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HalamanKasbon(
-                                  // name: _namaPelangganController.text,
-                                  // harga: _totalHutangController.text,
-                                ),
-                              ),
-                            );
-                          });
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(left: 300),
-                          child: Image.asset(
-                            'assets/unduhh.png',
-                            width: 24,
-                            height: 24,
-                            color: Colors.white,
+                      SizedBox(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            onPressed: _saveKasbon,
+                            icon: Icon(
+                              Icons.save_alt,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                      ),
+                        ],
+                      )
                     ]),
                   ),
                 ),
@@ -307,6 +366,21 @@ class _TambahKasbonState extends State<TambahKasbon> {
           ),
         ),
       ),
+    );
+  }
+
+  void _saveKasbon() {
+    Map<String, dynamic> newKasbon = {
+      'nama': _namaPelangganController.text,
+      'harga': _totalHutangController.text,
+      // Add other fields as needed
+    };
+
+    Provider.of<CardData>(context, listen: false).addKasbon(newKasbon);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HalamanKasbon()),
     );
   }
 }

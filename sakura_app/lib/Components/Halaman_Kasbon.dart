@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sakura_app/Components/tambah_Kasbon.dart';
+import 'package:sakura_app/widgets/tandatangan.dart';
 import '../provider/myProvider.dart';
+import 'edit_kasbon.dart'; // Import the EditKasbon screen
 
 class HalamanKasbon extends StatelessWidget {
   const HalamanKasbon({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CardData>(
-      create: (_) => CardData(),
-      child: Consumer<CardData>(builder: (context, cardData, _) {
+    return Consumer<CardData>(
+      builder: (context, cardData, _) {
         return Scaffold(
           appBar: cardData.isSelecting
               ? _buildSelectionAppBar(context, cardData)
@@ -78,7 +81,7 @@ class HalamanKasbon extends StatelessWidget {
                                           ),
                                         ),
                                         Checkbox(
-                                          value: card['isChecked'],
+                                          value: card['isChecked'] ?? false,
                                           onChanged: (value) {
                                             cardData.toggleCardSelection(index);
                                           },
@@ -135,13 +138,18 @@ class HalamanKasbon extends StatelessWidget {
                   bottom: 0,
                   child: FloatingActionButton(
                     onPressed: () {
-                      // Aksi yang ingin Anda lakukan saat FAB diklik
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TambahKasbon(),
+                        ),
+                      );
                     },
                     backgroundColor: Colors.white,
                     child: Icon(
                       Icons.add,
                       color: Color.fromRGBO(241, 33, 90, 1),
-                      weight: 12,
+                      size: 30,
                     ),
                   ),
                 ),
@@ -149,7 +157,7 @@ class HalamanKasbon extends StatelessWidget {
             ),
           ),
         );
-      }),
+      },
     );
   }
 
@@ -170,6 +178,23 @@ class HalamanKasbon extends StatelessWidget {
             cardData.removeSelectedIndices();
           },
         ),
+        IconButton(
+          icon: Icon(Icons.edit),
+          onPressed: () {
+            final index = cardData.selectedIndices[0];
+            final selectedCard = cardData.cardDataList[index];
+
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => EditKasbon(
+                  index: index,
+                  initialData: selectedCard,
+                ),
+              ),
+            );
+          },
+        )
       ],
     );
   }
@@ -191,6 +216,7 @@ class HalamanKasbon extends StatelessWidget {
     );
   }
 }
+
 
 
 // import 'package:flutter/material.dart';

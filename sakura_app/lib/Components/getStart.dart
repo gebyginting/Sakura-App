@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sakura_app/widgets/bottomNavbar.dart';
 import 'package:sakura_app/widgets/dashboard.dart';
-
 
 class Getstart extends StatelessWidget {
   Getstart({Key? key}) : super(key: key);
@@ -40,8 +40,10 @@ class Getstart extends StatelessWidget {
                   SizedBox(height: 60),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => DashboardPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyBottomNavbar()));
                     },
                     child:
                         Text('Mulai Sekarang', style: TextStyle(fontSize: 18)),

@@ -3,7 +3,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:sakura_app/Components/Profile&Logout.dart';
+import 'package:sakura_app/controller/controller.dart';
 import 'package:sakura_app/provider/user.dart';
+import 'package:sakura_app/widgets/bottomNavbar.dart';
 
 bool _obscurePassword = true;
 
@@ -15,7 +17,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _namalengkapController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   @override
@@ -61,7 +63,21 @@ class _SignupState extends State<Signup> {
                           color: Colors.white,
                         ),
                       ),
-                      SizedBox(height: myHeight * 0.1),
+                      SizedBox(height: myHeight * 0.03),
+                      TextField(
+                        controller: _namalengkapController,
+                        decoration: InputDecoration(
+                          hintText: 'Masukkan Nama Lengkap',
+                          labelText: 'Nama Lengkap',
+                          labelStyle:
+                              TextStyle(color: Color.fromARGB(255, 88, 87, 87)),
+                          filled: true,
+                          fillColor: Color.fromARGB(255, 255, 255, 255),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8)),
+                        ),
+                      ),
+                      SizedBox(height: 17),
                       TextField(
                         controller: _usernameController,
                         decoration: InputDecoration(
@@ -150,7 +166,7 @@ class _SignupState extends State<Signup> {
                       SizedBox(height: 13),
                       ElevatedButton(
                         onPressed: () {
-                          final name = _nameController.text;
+                          final name = _namalengkapController.text;
                           final username = _usernameController.text;
                           final email = _emailController.text;
                           final userProvider =
@@ -160,7 +176,7 @@ class _SignupState extends State<Signup> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Profiledlogout()),
+                                builder: (context) => MyBottomNavbar()),
                           );
                         },
                         child: Text(
