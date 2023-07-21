@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:sakura_app/reusableWidgets/myAppbar.dart';
 import 'package:sakura_app/widgets/ubahalamat.dart';
 import '../provider/myProvider.dart';
 
@@ -23,18 +24,7 @@ class _HalamanAlamatState extends State<HalamanAlamat> {
     final alamat = alamatProvider.alamat;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Alamat',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Color.fromRGBO(239, 239, 239, 1),
-      ),
+      appBar: MyAppBar(title: 'Alamat', iconback: true),
       body: Align(
         alignment: AlignmentDirectional.topCenter,
         child: Card(
@@ -106,7 +96,8 @@ class _HalamanAlamatState extends State<HalamanAlamat> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => UbahAlamatPage()));
+                                    builder: (context) => UbahAlamatPage(),
+                                    fullscreenDialog: true));
                           },
                           child: Text(
                             'Ubah',

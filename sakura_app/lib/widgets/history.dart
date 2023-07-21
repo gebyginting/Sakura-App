@@ -31,7 +31,6 @@ class _HistoryPageState extends State<HistoryPage> {
     color: Color.fromRGBO(0, 0, 0, 1),
   );
 
-  
   @override
   Widget build(BuildContext context) {
     final myHeight = MediaQuery.of(context).size.height;
@@ -39,7 +38,10 @@ class _HistoryPageState extends State<HistoryPage> {
     var filter = Provider.of<HistoryFilter>(context);
 
     return Scaffold(
-      appBar: MyAppBar(title: 'Riwayat'),
+      appBar: MyAppBar(
+        title: 'Riwayat',
+        iconback: false,
+      ),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

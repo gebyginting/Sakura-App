@@ -23,7 +23,10 @@ class _DetailKasbonState extends State<DetailKasbon> {
     final myWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: MyAppBar(title: 'Detail Kasbon'),
+      appBar: MyAppBar(
+        title: 'Detail Kasbon',
+        iconback: true,
+      ),
       body: Align(
         alignment: AlignmentDirectional.topCenter,
         child: Card(

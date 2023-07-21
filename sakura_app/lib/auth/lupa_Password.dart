@@ -10,6 +10,48 @@ class Lupa_password extends StatefulWidget {
 }
 
 class _Lupa_passwordState extends State<Lupa_password> {
+  void _showConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Verification(),
+              ));
+        });
+
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          backgroundColor: Color.fromRGBO(240, 234, 234, 1),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            side: BorderSide(color: Color.fromRGBO(241, 33, 90, 1), width: 2.0),
+          ),
+          content: SizedBox(
+            width: 400,
+            height: 300,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.fromLTRB(50, 50, 50, 40),
+                  child: Image.asset('assets/Subtract.png'),
+                ),
+                Text(
+                  'Kode Verifikasi Telah\n     berhasil dikirim.',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -78,14 +120,10 @@ class _Lupa_passwordState extends State<Lupa_password> {
                         SizedBox(height: 30),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Verification()),
-                            );
+                            _showConfirmationDialog();
                           },
                           child:
-                              Text('Lanjutkan', style: TextStyle(fontSize: 18)),
+                              Text('Lanjutkan', style: TextStyle(fontSize: 15)),
                           style: ElevatedButton.styleFrom(
                               primary: Colors.pink[500],
                               padding: EdgeInsets.symmetric(

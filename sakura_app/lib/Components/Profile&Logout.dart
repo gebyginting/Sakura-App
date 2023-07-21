@@ -373,7 +373,8 @@ class _ProfiledlogoutState extends State<Profiledlogout> {
                                                   EdgeInsets.only(right: 20),
                                               child: OutlinedButton(
                                                 onPressed: () {
-                                                  Navigator.pop(context);
+                                                  Navigator.popUntil(context,
+                                                      (route) => route.isFirst);
                                                 },
                                                 style: OutlinedButton.styleFrom(
                                                   shape: RoundedRectangleBorder(

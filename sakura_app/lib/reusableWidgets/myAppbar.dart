@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const MyAppBar({required this.title});
+  const MyAppBar({required this.title, required this.iconback});
   final String title;
+  final bool iconback;
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +13,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: IconThemeData(
         color: Colors.black, // <-- SEE HERE
       ),
+      leading: iconback
+          ? IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Image.asset('assets/backIcon.png'),
+              iconSize: 10,
+            )
+          : null,
       title: Text(
         title,
         style: GoogleFonts.notoSansThai(
@@ -21,7 +31,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       centerTitle: true,
-      toolbarHeight: myHeight * 0.09,
+      toolbarHeight: myHeight * 0.8,
       backgroundColor: Color.fromRGBO(239, 239, 239, 1),
     );
   }

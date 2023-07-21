@@ -25,19 +25,25 @@ class _UbahAlamatPageState extends State<UbahAlamatPage> {
 
   @override
   Widget build(BuildContext context) {
+    final myHeight = MediaQuery.of(context).size.height;
+
     return ChangeNotifierProvider(
       create: (_) => EditAlamat(),
       child: Scaffold(
         appBar: AppBar(
+          iconTheme: IconThemeData(
+            color: Colors.black, //
+          ),
           title: Text(
             'Edit Alamat',
-            style: TextStyle(
-              fontSize: 18,
+            style: GoogleFonts.notoSansThai(
+              fontSize: 20,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
           ),
           centerTitle: true,
+          toolbarHeight: myHeight * 0.075,
           backgroundColor: Color.fromRGBO(239, 239, 239, 1),
         ),
         body: Consumer<EditAlamat>(

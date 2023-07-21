@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sakura_app/Components/Profile&Logout.dart';
-import 'package:sakura_app/widgets/bottomNavbar.dart';
 
 class changepw extends StatefulWidget {
   const changepw({Key? key}) : super(key: key);
@@ -24,12 +23,7 @@ class _changepwState extends State<changepw> {
       context: context,
       builder: (BuildContext context) {
         Future.delayed(Duration(seconds: 3), () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    MyBottomNavbar()), // Ganti dengan halaman Profile yang sesuai
-          );
+          Navigator.popUntil(context, (route) => route.isFirst);
         });
 
         return AlertDialog(
@@ -64,6 +58,8 @@ class _changepwState extends State<changepw> {
 
   @override
   Widget build(BuildContext context) {
+    final myHeight = MediaQuery.of(context).size.height;
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -95,7 +91,7 @@ class _changepwState extends State<changepw> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 150),
+                      SizedBox(height: myHeight * 0.15),
                       Align(
                         alignment: Alignment.center,
                         child: Text(
@@ -146,7 +142,7 @@ class _changepwState extends State<changepw> {
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 11,
+                                          fontSize: 14,
                                         ),
                                       ),
                                       SizedBox(height: 5),
@@ -195,7 +191,7 @@ class _changepwState extends State<changepw> {
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 11,
+                                          fontSize: 14,
                                         ),
                                       ),
                                       SizedBox(height: 5),
@@ -249,7 +245,7 @@ class _changepwState extends State<changepw> {
                         style: ElevatedButton.styleFrom(
                           primary: Colors.pink[500],
                           padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 90),
+                              vertical: 15, horizontal: 90),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),

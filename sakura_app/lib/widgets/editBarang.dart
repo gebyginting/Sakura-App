@@ -26,7 +26,7 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
   void initState() {
     super.initState();
     //memastikan Provider dipanggil setelah widget sdh terpasang.
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       var prov = Provider.of<AllBarang>(context, listen: false);
       prov.namaController.text = widget.barang.nama;
       prov.hargaController.text =
@@ -55,7 +55,10 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
     }
 
     return Scaffold(
-      appBar: MyAppBar(title: 'Edit Barang'),
+      appBar: MyAppBar(
+        title: 'Edit Barang',
+        iconback: true,
+      ),
       body: Align(
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(

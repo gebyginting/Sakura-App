@@ -23,7 +23,10 @@ class _DetailBarangScreenState extends State<DetailBarangScreen> {
     var prov = Provider.of<AllBarang>(context, listen: false);
 
     return Scaffold(
-      appBar: MyAppBar(title: 'Rincian Barang'),
+      appBar: MyAppBar(
+        title: 'Rincian Barang',
+        iconback: true,
+      ),
       body: Align(
         alignment: Alignment.topCenter,
         child: Card(

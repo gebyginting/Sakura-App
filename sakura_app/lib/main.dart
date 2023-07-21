@@ -6,6 +6,7 @@ import 'package:sakura_app/provider/adduserkasbon.dart';
 import 'package:sakura_app/provider/myProvider.dart';
 import 'package:sakura_app/provider/user.dart';
 import 'package:sakura_app/routes/routes.dart';
+import 'package:sakura_app/widgets/bottomNavbar.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         backgroundColor: Colors.white,
       ),
-      home: SplashScreen(),
+      home: MyBottomNavbar(),
     );
   }
 }
