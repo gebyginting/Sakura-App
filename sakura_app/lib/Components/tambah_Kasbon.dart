@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:sakura_app/Components/Halaman_Kasbon.dart';
-import 'package:sakura_app/provider/adduserkasbon.dart';
 import 'package:sakura_app/provider/myProvider.dart';
 import 'package:sakura_app/widgets/tandatangan.dart';
 
@@ -32,16 +31,8 @@ class _TambahKasbonState extends State<TambahKasbon> {
     final myHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Color.fromRGBO(239, 239, 239, 1),
-        toolbarHeight: myHeight * 0.12,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          color: Colors.black,
-          padding: EdgeInsets.only(left: 30),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+        iconTheme: IconThemeData(
+          color: Colors.black, // <-- SEE HERE
         ),
         title: Text(
           'Tambah Kasbon',
@@ -51,6 +42,9 @@ class _TambahKasbonState extends State<TambahKasbon> {
             color: Colors.black,
           ),
         ),
+        centerTitle: true,
+        toolbarHeight: myHeight * 0.075,
+        backgroundColor: Color.fromRGBO(239, 239, 239, 1),
       ),
       body: Align(
         alignment: Alignment.topCenter,
@@ -311,8 +305,8 @@ class _TambahKasbonState extends State<TambahKasbon> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => TandaTangan(),
-                                      ),
+                                          builder: (context) => TandaTangan(),
+                                          fullscreenDialog: true),
                                     );
                                   },
                                   child: Image.asset(

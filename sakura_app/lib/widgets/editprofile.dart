@@ -61,19 +61,13 @@ class _UbahProfileState extends State<UbahProfile> {
     final myHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.black,
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+        iconTheme: IconThemeData(
+          color: Colors.black, // <-- SEE HERE
         ),
         title: Text(
-          'Ubah Profile',
-          style: TextStyle(
-            fontSize: 18,
+          'Edit Profile',
+          style: GoogleFonts.notoSansThai(
+            fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),

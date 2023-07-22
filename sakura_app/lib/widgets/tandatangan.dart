@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sakura_app/Components/edit_kasbon.dart';
 import 'package:signature/signature.dart';
 
@@ -21,23 +22,19 @@ class _TandaTanganState extends State<TandaTangan> {
     final myHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.close_rounded),
-          color: Colors.black,
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+        iconTheme: IconThemeData(
+          color: Colors.black, // <-- SEE HERE
         ),
         title: Text(
           'Tanda Tangan',
-          style: TextStyle(
-            fontSize: 18,
+          style: GoogleFonts.notoSansThai(
+            fontSize: 20,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
         ),
         centerTitle: true,
-        toolbarHeight: myHeight * 0.10,
+        toolbarHeight: myHeight * 0.075,
         backgroundColor: Color.fromRGBO(239, 239, 239, 1),
       ),
       body: Column(

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:sakura_app/Components/tambah_Kasbon.dart';
+import 'package:sakura_app/widgets/detailKasbon.dart';
 import 'package:sakura_app/widgets/tandatangan.dart';
 import '../provider/myProvider.dart';
 import 'edit_kasbon.dart'; // Import the EditKasbon screen
@@ -57,7 +58,10 @@ class HalamanKasbon extends StatelessWidget {
                           heightFactor: 0.9,
                           child: GestureDetector(
                             onTap: () {
-                              cardData.toggleCardSelection(index);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => DetailKasbon()));
                             },
                             child: Card(
                               shape: RoundedRectangleBorder(
@@ -100,18 +104,17 @@ class HalamanKasbon extends StatelessWidget {
                                     SizedBox(height: 20),
                                     Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Image.asset(
                                           'assets/Rectangle 58.png',
-                                          width: 70,
-                                          height: 70,
+                                          width: 65,
+                                          height: 65,
                                         ),
-                                        SizedBox(width: 4),
                                         Image.asset(
                                           'assets/Rectangle 59.png',
-                                          width: 70,
-                                          height: 70,
+                                          width: 65,
+                                          height: 65,
                                         )
                                       ],
                                     ),
@@ -141,8 +144,8 @@ class HalamanKasbon extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TambahKasbon(),
-                        ),
+                            builder: (context) => TambahKasbon(),
+                            fullscreenDialog: true),
                       );
                     },
                     backgroundColor: Colors.white,
@@ -202,16 +205,20 @@ class HalamanKasbon extends StatelessWidget {
   AppBar _buildAppBar(BuildContext context, CardData cardData) {
     final myHeight = MediaQuery.of(context).size.height;
     return AppBar(
+      iconTheme: IconThemeData(
+        color: Colors.black, // <-- SEE HERE
+      ),
       title: Text(
         'Daftar Kasbon',
-        style: TextStyle(
-          fontSize: 18,
+        style: GoogleFonts.notoSansThai(
+          fontSize: 20,
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
       ),
+      leading: Image.asset('assets/hider.png'),
       centerTitle: true,
-      toolbarHeight: myHeight * 0.10,
+      toolbarHeight: myHeight * 0.075,
       backgroundColor: Color.fromRGBO(239, 239, 239, 1),
     );
   }

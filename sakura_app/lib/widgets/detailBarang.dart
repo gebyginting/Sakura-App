@@ -226,7 +226,11 @@ class _DetailBarangScreenState extends State<DetailBarangScreen> {
                                                 onPressed: () {
                                                   prov.hapusBarang(
                                                       widget.barang);
-                                                  Navigator.pop(context);
+                                                  Navigator
+                                                      .pushNamedAndRemoveUntil(
+                                                          context,
+                                                          '/',
+                                                          (route) => false);
                                                   Navigator.pop(context);
                                                   ScaffoldMessenger.of(context)
                                                       .showSnackBar(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sakura_app/auth/ganti_Password.dart';
 import 'package:sakura_app/provider/myProvider.dart';
+import 'package:sakura_app/reusableWidgets/myAppbar.dart';
 import 'package:sakura_app/widgets/alamat.dart';
 import 'package:sakura_app/widgets/changePwProfile.dart';
 import 'package:sakura_app/widgets/editprofile.dart';
@@ -25,19 +26,7 @@ class _ProfiledlogoutState extends State<Profiledlogout> {
     final email = userProvider.email;
     final myHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-        centerTitle: true,
-        toolbarHeight: myHeight * 0.10,
-        backgroundColor: Color.fromRGBO(239, 239, 239, 1),
-      ),
+      appBar: MyAppBar(title: 'Profile', iconback: false),
       body: SingleChildScrollView(
         child: Stack(children: [
           Container(

@@ -13,9 +13,7 @@ class TambahBarang extends StatefulWidget {
 
   @override
   State<TambahBarang> createState() => _TambahBarangState();
-  
 }
-
 
 class _TambahBarangState extends State<TambahBarang> {
   File? _imageFile;
@@ -25,9 +23,8 @@ class _TambahBarangState extends State<TambahBarang> {
   TextEditingController _hargaController = TextEditingController();
   TextEditingController _stokController = TextEditingController();
   TextEditingController _kodeController = TextEditingController();
-  
+
   Future<File?> _pickImage(ImageSource source) async {
-    
     final picker = ImagePicker();
     final pickedImage = await picker.getImage(source: source);
     if (pickedImage != null) {
@@ -35,7 +32,6 @@ class _TambahBarangState extends State<TambahBarang> {
     }
     return null;
   }
-  
 
   Future<void> _takePicture() async {
     final picker = ImagePicker();
@@ -46,20 +42,25 @@ class _TambahBarangState extends State<TambahBarang> {
       });
     }
   }
-   void _simpanBarang() {
-  final allBarangProvider = Provider.of<AllBarang>(context, listen: false);
-  if (_gambarBarang != _gambarBarang && _namaController != _namaController && _hargaController != _hargaController && _stokController != _stokController && _kodeController != _kodeController) {
-    allBarangProvider.tambahBarang(
-      Barang(
-        image: _gambarBarang !,
-        nama: _namaController.text !,
-        harga: int.parse (_hargaController.text),
-        stok: int.parse(_stokController.text),
-        kode: _kodeController.text !,
-      ),
-    );
+
+  void _simpanBarang() {
+    final allBarangProvider = Provider.of<AllBarang>(context, listen: false);
+    if (_gambarBarang != _gambarBarang &&
+        _namaController != _namaController &&
+        _hargaController != _hargaController &&
+        _stokController != _stokController &&
+        _kodeController != _kodeController) {
+      allBarangProvider.tambahBarang(
+        Barang(
+          image: _gambarBarang!,
+          nama: _namaController.text!,
+          harga: int.parse(_hargaController.text),
+          stok: int.parse(_stokController.text),
+          kode: _kodeController.text!,
+        ),
+      );
+    }
   }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -213,7 +214,7 @@ class _TambahBarangState extends State<TambahBarang> {
                                       ),
                                       Expanded(
                                         child: TextFormField(
-                                           controller: prov.hargaController,
+                                          controller: prov.hargaController,
                                           style: GoogleFonts.notoSansThai(
                                             fontSize: 11,
                                             fontWeight: FontWeight.bold,
@@ -251,7 +252,6 @@ class _TambahBarangState extends State<TambahBarang> {
                                             Expanded(
                                               child: TextFormField(
                                                 controller: prov.stokController,
-
                                                 style: GoogleFonts.notoSansThai(
                                                   fontSize: 11,
                                                   fontWeight: FontWeight.bold,
@@ -368,10 +368,12 @@ class _TambahBarangState extends State<TambahBarang> {
                                   onPressed: () {
                                     _simpanBarang();
                                     prov.addBarang(Barang(
-                                        image: '/jpg' ,
+                                        image: '/jpg',
                                         nama: prov.namaController.text,
-                                        harga: int.parse(prov.hargaController.text),
-                                        stok:int.parse(prov.stokController.text),
+                                        harga: int.parse(
+                                            prov.hargaController.text),
+                                        stok:
+                                            int.parse(prov.stokController.text),
                                         kode: prov.kodeController.text));
                                     Navigator.push(
                                         context,
@@ -379,7 +381,6 @@ class _TambahBarangState extends State<TambahBarang> {
                                             builder: (context) =>
                                                 DashboardPage()));
                                   },
-
                                   style: ElevatedButton.styleFrom(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(20),

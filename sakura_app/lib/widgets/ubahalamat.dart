@@ -32,7 +32,7 @@ class _UbahAlamatPageState extends State<UbahAlamatPage> {
       child: Scaffold(
         appBar: AppBar(
           iconTheme: IconThemeData(
-            color: Colors.black, //
+            color: Colors.black,
           ),
           title: Text(
             'Edit Alamat',
@@ -43,7 +43,7 @@ class _UbahAlamatPageState extends State<UbahAlamatPage> {
             ),
           ),
           centerTitle: true,
-          toolbarHeight: myHeight * 0.075,
+          toolbarHeight: myHeight * 0.09,
           backgroundColor: Color.fromRGBO(239, 239, 239, 1),
         ),
         body: Consumer<EditAlamat>(

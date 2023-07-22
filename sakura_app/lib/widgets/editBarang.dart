@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sakura_app/provider/myModel.dart';
 import 'package:sakura_app/provider/myProvider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:sakura_app/widgets/bottomNavbar.dart';
 
 import '../reusableWidgets/myAppbar.dart';
 
@@ -44,6 +45,7 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
         fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black);
     var isiText = GoogleFonts.notoSansThai(
         fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black);
+    final myHeight = MediaQuery.of(context).size.height;
 
     @override
     void dispose() {
@@ -55,9 +57,21 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
     }
 
     return Scaffold(
-      appBar: MyAppBar(
-        title: 'Edit Barang',
-        iconback: true,
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black, // <-- SEE HERE
+        ),
+        title: Text(
+          'Rincian Barang',
+          style: GoogleFonts.notoSansThai(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+        centerTitle: true,
+        toolbarHeight: myHeight * 0.10,
+        backgroundColor: Color.fromRGBO(239, 239, 239, 1),
       ),
       body: Align(
         alignment: Alignment.topCenter,
@@ -232,7 +246,12 @@ class _EditBarangScreenState extends State<EditBarangScreen> {
                                 content: Text('Edit barang disimpan.'),
                               ),
                             );
-                            Navigator.pop(context);
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      MyBottomNavbar()), // Ganti dengan rute yang ingin Anda tuju
+                            );
                           },
                           child: Padding(
                             padding: const EdgeInsetsDirectional.symmetric(

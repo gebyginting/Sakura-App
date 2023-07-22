@@ -10,9 +10,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     final myHeight = MediaQuery.of(context).size.height;
     return AppBar(
-      iconTheme: IconThemeData(
-        color: Colors.black, // <-- SEE HERE
-      ),
+      // iconTheme: IconThemeData(
+      //     // color: Colors.black,
+      //     ),
       leading: iconback
           ? IconButton(
               onPressed: () {
@@ -21,7 +21,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               icon: Image.asset('assets/backIcon.png'),
               iconSize: 10,
             )
-          : null,
+          : Image.asset('assets/hider.png'),
       title: Text(
         title,
         style: GoogleFonts.notoSansThai(
